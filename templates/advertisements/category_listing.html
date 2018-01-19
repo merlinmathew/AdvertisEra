@@ -11,19 +11,22 @@
             <div class="post_commentbox"> </div>
             <h1>{{ category.category}}</h1>
             <div class="single_page_content"> <img class="img-center" src="{% static 'images/featured_img1.jpg' %}" alt="">
+              {% if ads %}
               {% for ad in ads %}
-              <a href="{% url 'advertisement-detail' slug=ad.slug %}"><h5>{{ forloop.counter  }} - {{ ad.title }}</h5></a>
+              <a href="{% url 'advertisement-detail' slug=ad.slug %}"><h5>{{ forloop.counter }} - {{ ad.title }}</h5></a>
               <p>{{ad.description|truncatechars:400}}</p>
               {% endfor %}
-
+              {% else %}
+              <h1 class="lavendera">Sorry! No advertisement under this category!</h1>
+              {% endif %}
             </div>
             <div class="social_link">
               <ul class="sociallink_nav">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                <li><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                <li><a target="_blank" href="https://twitter.com/login"><i class="fa fa-twitter"></i></a></li>
+                <li><a target="_blank" href="https://accounts.google.com/"><i class="fa fa-google-plus"></i></a></li>
+                <li><a target="_blank" href="https://www.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
+                <li><a target="_blank" href="https://in.pinterest.com/login/"><i class="fa fa-pinterest"></i></a></li>
               </ul>
             </div>
 

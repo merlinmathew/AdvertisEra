@@ -26,6 +26,9 @@ from .models import Advertisement, Category
 class HomeView(TemplateView):
     template_name = "advertisements/home.html"
 
+class ContactView(TemplateView):
+    template_name = "advertisements/contact.html"
+
 
 class AboutView(TemplateView):
     template_name = "advertisements/about.html"
@@ -93,8 +96,8 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         login(self.request, form.get_user())
+        messages.success(self.request, 'You have successfully logged in !')
         return redirect('add-advertisement')
-
 
 def logout_view(request):
     logout(request)
@@ -136,11 +139,23 @@ class AdvertisementEditView(generic.UpdateView):
     form_class = AdvertisementEditForm
 
     def form_valid(self, form):
-        form.save
+        form.save()
         return HttpResponseRedirect(self.get_success_url())
 
-    def get_success_url(self, **kwargs):
-        return reverse_lazy('advertisement-detail', kwargs={'slug':self.kwargs['slug']})
+    def get_success_url(self , **kwargs):
+        return reverse_lazy('advertisement-detail', kwargs={'slug': self.kwargs['slug']})
+
+class AdvertisementDeleteView(generic.DeleteView):
+    """
+    delete client details
+    """
+    model = Advertisement
+    success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(self.request, '%s has been deleted...!' % obj.title)
+        return self.post(request, *args, **kwargs)
 
 
 def charge(request):

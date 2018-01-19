@@ -36,11 +36,11 @@ class Advertisement(base_models.TimeStampedModelBase):
     contact_number = models.CharField(verbose_name=_('Contact Number'),max_length=30,null=True, blank=True)
     is_featured = models.BooleanField(verbose_name=_('Featured'), default=False)
     created_by = models.ForeignKey(User,related_name="user_advertisement",null=True,blank=True)
-    slug = AutoSlugField(populate_from='title', unique=True, always_update=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
 
     class Meta:
         verbose_name = _("Advertisement")
         verbose_name_plural = _("Advertisements")
 
-    def __unicode__(self):
-        return str(self.title[:10])+"..."
+    def __str__(self):
+        return str(self.title[:30])

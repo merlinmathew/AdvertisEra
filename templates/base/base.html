@@ -37,12 +37,13 @@
             <ul class="top_nav">
               <li><a href="{% url 'home' %}">Home</a></li>
               <li><a href="{% url 'about' %}">About</a></li>
-              <li><a href="">Contact</a></li>
+              <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
           </div>
           <div class="header_top_right">
             {% if user.is_authenticated %}
-            <p>Welcome {{ user.username }} <a class="lavendera" href="{% url 'add-advertisement' %}">Advertise Here!</a></p>
+            <p><a class="lavendera" href="{% url 'logout' %}">Logout</a></p>
+            <p>Welcome {{ user.username }} <a class="lavendera" href="{% url 'add-advertisement' %}">Advertise Here!</a></p></br>
             {% else %}
             <p><a class="lavendera" href="{% url 'login' %}">LOG IN</a> to advertise!</p>
             {% endif %}

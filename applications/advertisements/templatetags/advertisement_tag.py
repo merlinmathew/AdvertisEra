@@ -9,7 +9,7 @@ register = template.Library()
 
 @register.assignment_tag()
 def advertisement_list():
-    advertisements = Advertisement.objects.all()
+    advertisements = Advertisement.objects.order_by('id')
     return advertisements
 
 @register.assignment_tag()

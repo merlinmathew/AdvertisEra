@@ -5,7 +5,6 @@ __author__ = 'Merlin'
 from django.contrib.auth.models import User
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth import authenticate
 
 from .models import Advertisement
 
@@ -63,7 +62,7 @@ class AdvertisementAddForm(forms.ModelForm):
         self.fields['image'].widget.attrs['type'] = "file"
         self.fields['image'].widget.attrs['accept'] = ".jpg, .jpeg, .png"
         self.fields['image'].required = True
-        self.fields['is_featured'].widget.attrs['onclick'] = "calc();"
+        # self.fields['is_featured'].widget.attrs['onclick'] = "calc();"
 
 class AdvertisementEditForm(forms.ModelForm):
     class Meta:

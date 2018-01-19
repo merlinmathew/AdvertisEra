@@ -21,16 +21,17 @@
               <p>{{ advertisement.contact_number }}</p>{% endif %}
               {% if advertisement.is_featured %}
               <h5>FEATURED : YES !</h5>{% endif %}
-            <a href="/advertisera/advertisement-edit/{{ advertisement.slug }}/"><button type="submit" class="form_submission">EDIT</button></a>
+            <a href="{% url 'advertisement-edit' slug=advertisement.slug %}"><button type="submit" class="form_submission">EDIT</button></a>
+            <a href="{% url 'advertisement-delete' slug=advertisement.slug %}"><button type="submit" class="form_submission">DELETE</button></a>
 
             </div>
             <div class="social_link">
               <ul class="sociallink_nav">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                <li><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                <li><a target="_blank" href="https://twitter.com/login"><i class="fa fa-twitter"></i></a></li>
+                <li><a target="_blank" href="https://accounts.google.com/"><i class="fa fa-google-plus"></i></a></li>
+                <li><a target="_blank" href="https://www.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
+                <li><a target="_blank" href="https://in.pinterest.com/login/"><i class="fa fa-pinterest"></i></a></li>
               </ul>
             </div>
 

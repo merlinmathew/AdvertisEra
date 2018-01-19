@@ -1,1 +1,1 @@
-web: gunicorn advertisera.wsgi --log-file -
+web: gunicorn Advertisera.wsgi --log-file -

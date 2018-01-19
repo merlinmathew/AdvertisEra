@@ -1,0 +1,241 @@
+{% extends "base/base.html" %}
+{% load advertisement_tag %}
+{% load staticfiles %}
+{% block content %}
+
+  <section id="newsSection">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="latest_newsarea"> <span>Latest Ads</span>
+          <ul id="ticker01" class="news_sticker">
+            {% advertisement_list as advertisements %}
+            {% for advertisement in advertisements %}
+            <li><a href="{% url 'advertisement-detail' slug=advertisement.slug %}"><img src="{{ advertisement.image.url }}" alt="">{{ advertisement.title|truncatechars:18 }}</a></li>
+            {% endfor %}
+          </ul>
+          <div class="social_area">
+            <ul class="social_nav">
+              <li class="facebook"><a target="_blank" href="https://www.facebook.com/"></a></li>
+              <li class="twitter"><a target="_blank" href="https://twitter.com/login"></a></li>
+              <li class="flickr"><a target="_blank" href="https://www.flickr.com/"></a></li>
+              <li class="pinterest"><a target="_blank" href="https://in.pinterest.com/login/"></a></li>
+              <li class="googleplus"><a target="_blank" href="https://plus.google.com/discover"></a></li>
+              <li class="vimeo"><a target="_blank" href="https://vimeo.com/"></a></li>
+              <li class="youtube"><a target="_blank" href="https://www.youtube.com/"></a></li>
+              <li class="mail"><a target="_blank" href="https://accounts.google.com/"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="sliderSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="slick_slider">
+          {% advertisement_list as advertisements %}
+          {% for advertisement in advertisements %}
+          {% if advertisement.is_featured %}
+          <div class="single_iteam"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}"> <img src="{{ advertisement.image.url }}" alt=""></a>
+            <div class="slider_article">
+              <h2><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a></h2>
+              <p>{{ advertisement.description|truncatechars:147 }}</p>
+            </div>
+          </div>{% endif %}{% endfor %}
+        </div>
+      </div>
+    {% include "advertisements/categories.html" %}
+
+    </div>
+  </section>
+  <section id="contentSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="left_content">
+          <div class="single_post_content">
+            <h2><span>Business</span></h2>
+             {% advertisement_list as advertisements %}
+             {% for advertisement in advertisements %}
+             {% if advertisement.category.category == "Business" %}
+
+            <div class="single_post_content_left">
+              <ul class="business_catgnav  wow fadeInDown">
+                <li>
+                  <figure class="bsbig_fig"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="{{ advertisement.image.url  }}"> <span class="overlay"></span> </a>
+                    <figcaption> <a href="pages/single_page.html">{{ advertisement.title }}</a> </figcaption>
+                    <p>{{ advertisement.description|truncatechars:129 }}</p>
+                  </figure>
+                </li>
+              </ul>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <div class="single_post_content_right">
+              <ul class="spost_nav">
+                <li>
+                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
+                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
+                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
+                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
+                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="fashion_technology_area">
+            <div class="fashion">
+              <div class="single_post_content">
+                <h2><span>Fashion</span></h2>
+                 {% advertisement_list as advertisements %}
+                 {% for advertisement in advertisements %}
+                 {% if advertisement.category.category == "Fashion" %}
+
+
+                <ul class="business_catgnav wow fadeInDown">
+                  <li>
+                    <figure class="bsbig_fig"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="{{ advertisement.image.url }}"> <span class="overlay"></span> </a>
+                      <figcaption> <a href="pages/single_page.html">{{ advertisement.title }}</a> </figcaption>
+                      <p>{{ advertisement.description|truncatechars:129 }}</p>
+                    </figure>
+                  </li>
+                </ul>
+                {% endif %}{% endfor %}
+                <ul class="spost_nav">
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
+                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
+                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
+                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
+                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="technology">
+              <div class="single_post_content">
+                <h2><span>Technology</span></h2>
+                 {% advertisement_list as advertisements %}
+                 {% for advertisement in advertisements %}
+                 {% if advertisement.category.category == "Technology" %}
+                <ul class="business_catgnav">
+                  <li>
+                    <figure class="bsbig_fig wow fadeInDown"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="{{ advertisement.image.url }}"> <span class="overlay"></span> </a>
+                      <figcaption> <a href="pages/single_page.html">{{ advertisement.title }}</a> </figcaption>
+                      <p>{{ advertisement.description|truncatechars:129 }}</p>
+                    </figure>
+                  </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+                <ul class="spost_nav">
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
+                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
+                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
+                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
+                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="single_post_content">
+            <h2><span>Other Assort</span></h2>
+            <ul class="photograph_nav  wow fadeInDown">
+             {% advertisement_list as advertisements %}
+             {% for advertisement in advertisements %}
+             {% if advertisement.category.category == "Other Assort" %}
+              <li>
+                <div class="photo_grid">
+                  <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="{{ advertisement.image.url }}" title="Photography Ttile 1"> <img src="{{ advertisement.image.url }}" alt=""/></a> </figure>
+                </div>
+              </li>
+              {% endif %}{% endfor %}
+             </ul>
+          </div>
+          <div class="single_post_content">
+            <h2><span>Life & Style</span></h2>
+             {% advertisement_list as advertisements %}
+             {% for advertisement in advertisements %}
+             {% if advertisement.category.category == "Life & Style" %}
+
+            <div class="single_post_content_left">
+              <ul class="business_catgnav">
+                <li>
+                  <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="pages/single_page.html"> <img src="{{ advertisement.image.url }}" alt=""> <span class="overlay"></span> </a>
+                    <figcaption> <a href="pages/single_page.html">{{ advertisement.title }}</a> </figcaption>
+                    <p>{{ advertisement.description|truncatechars:129 }}</p>
+                  </figure>
+                </li>
+              </ul>
+            </div>{% endif %}{% endfor %}
+            <div class="single_post_content_right">
+              <ul class="spost_nav">
+                <li>
+                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
+                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
+                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
+                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
+                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

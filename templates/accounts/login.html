@@ -1,0 +1,26 @@
+{% extends "base/base.html" %}
+{% load advertisement_tag %}
+{% load staticfiles %}
+{% block content %}
+  <section id="contentSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="left_content">
+          <div class="contact_area">
+            <h2>Log In</h2>
+            <form novalidate action="/advertisera/login/" class="contact_form" method="post">
+                {% csrf_token %}{{ form.non_field_errors }}
+                {{ form.username.errors }}{{ form.username }}
+                {{ form.password.errors }}{{ form.password }}
+              <button class="form_submission" type="submit">Submit</button>
+            </form>
+            <span><a href="/advertisera-password/recover/">Forgot Password?</a> </span></br>
+            <span>New User??<a href="{% url 'register' %}">Register Yourself!</a> </span>
+          </div>
+        </div>
+      </div>
+    {% include "advertisements/categories.html" %}
+
+    </div>
+  </section>
+{% endblock %}

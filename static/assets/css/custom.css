@@ -1,0 +1,14 @@
+.lavendera{text-decoration:none; color:#d083cf}
+.form_submission {
+    border: medium none;
+    color: #fff;
+    height: 35px;
+    padding: 5px 10px;
+    transition: all 0.5s;
+    background-color: #d083cf;
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+.errorlist{
+    color: red;
+}

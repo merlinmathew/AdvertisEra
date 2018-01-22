@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load advertisement_tag %}
+
+<html>
+<head>
+<title>Advert!sera</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/font.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/li-scroller.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/slick.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/jquery.fancybox.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/theme.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}">
+<!--[if lt IE 9]>
+<script src="{% static 'assets/js/html5shiv.min.js' %}"></script>
+<script src="{% static 'assets/js/respond.min.js' %}"></script>
+<![endif]-->
+</head>
+<body>
+<div id="preloader">
+  <div id="status">&nbsp;</div>
+</div>
+<a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="container">
+  <header id="header">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="header_top">
+          <div class="header_top_left">
+            <ul class="top_nav">
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'about' %}">About</a></li>
+              <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+          </div>
+          <div class="header_top_right">
+            {% if user.is_authenticated %}
+            <p><a class="lavendera" href="{% url 'logout' %}">Logout</a></p>
+            <p>Welcome {{ user.username }} <a class="lavendera" href="{% url 'add-advertisement' %}">Advertise Here!</a></p></br>
+            {% else %}
+            <p><a class="lavendera" href="{% url 'login' %}">LOG IN</a> to advertise!</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="header_bottom">
+          <div class="logo_area"><a href="{% url 'home' %}" class="logo">Advert!sera</a></div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+  {% block content %}
+  {% endblock %}
+  <footer id="footer">
+    <div class="footer_top">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="footer_widget wow fadeInLeftBig">
+            <h2>Menu</h2>
+            <ul class="tag_nav">
+              <li><a class="lavendera" href="{% url 'home' %}">Home</a></li>
+              <li><a class="lavendera" href="{% url 'about' %}">About</a></li>
+              <li><a class="lavendera" href="{% url 'contact' %}">Contact</a></li>
+              <li><a class="lavendera" href="{% url 'login' %}">Login</a></li>
+              <li><a class="lavendera" href="{% url 'register' %}">Register</a></li>
+              {% if user.is_authenticated %}
+              <li><a class="lavendera" href="{% url 'add-advertisement' %}">Add Advertisement</a></li>
+              {% else %}
+              <li><a class="lavendera" href="{% url 'login' %}">Add Advertisement</a></li>
+              {% endif %}
+            </ul>
+
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="footer_widget wow fadeInDown">
+            <h2>Tags</h2>
+            <ul class="tag_nav">
+              {% category_list as categories %}
+              {% for category in categories %}
+              <li><a class="lavendera" href="{% url 'category-listing' slug=category.slug %}">{{ category.category }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="footer_widget wow fadeInRightBig">
+            <h2>Contact</h2>
+            <a class="lavendera" href="{% url 'contact' %}"><p>Contact Us To Drop In Any Kind Of Query.Eagerly Waiting For Your Response Folks!!!!!</p></a>
+            <address>
+            {{ get_address.company }}
+            </address>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer_bottom">
+      <p class="copyright">Copyright &copy; 2018 <a href="">Advertisera</a></p>
+      <p class="developer">Developed By MerMat</p>
+    </div>
+  </footer>
+</div>
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/wow.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/slick.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.li-scroller.1.0.js' %}"></script>
+<script src="{% static 'assets/js/jquery.newsTicker.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.fancybox.pack.js' %}"></script>
+<script src="{% static 'assets/js/custom.js' %}"></script>
+</body>
+</html>

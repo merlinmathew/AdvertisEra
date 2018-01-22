@@ -1,0 +1,17 @@
+#common
+*.pyc
+.idea
+.jpg
+*~
+*.swp
+*.env
+
+#project
+Advertisera/local_settings.py
+Advertisera/dev_settings.py
+
+#database
+db.sqlite3
+
+# media
+/media

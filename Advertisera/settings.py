@@ -152,3 +152,9 @@ except ImportError:
     pass
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+EMAIL_BACKEND = "sgbackend.SendGridBackend"
+SENDGRID_API_KEY = "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"
+
+DEFAULT_FROM_EMAIL = 'merlin.sayone@gmail.com'

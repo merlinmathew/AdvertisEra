@@ -20,6 +20,7 @@ class Contact(base_models.TimeStampedModelBase):
     def __str__(self):
         return str(self.name[:10])+"..."
 
+
 class AdvertiseraAddress(SingletonModel):
     """
      To Store the Bank Address
@@ -61,4 +62,3 @@ class AdvertiseraAddress(SingletonModel):
 #
 #     def __str__(self):
 #         return self.icon
-

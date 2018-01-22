@@ -10,9 +10,8 @@ class Like(base_models.TimeStampedModelBase):
     """
     to store details about a like made by users
     """
-    user = models.ForeignKey(User,related_name='user_likes')
-    advertisement = models.ForeignKey(Advertisement,related_name='likes')
-
+    user = models.ForeignKey(User, related_name='user_likes')
+    advertisement = models.ForeignKey(Advertisement, related_name='likes')
 
     class Meta():
         abstract = False
@@ -21,5 +20,3 @@ class Like(base_models.TimeStampedModelBase):
 
     def __str__(self):
         return str(self.advertisement)
-
-

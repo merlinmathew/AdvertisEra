@@ -1,18 +1,20 @@
+from django.contrib.auth.models import User
+from django import forms
+from django.utils.translation import ugettext_lazy as _
+from .models import Advertisement
+
 from django.contrib.auth.forms import AuthenticationForm
 
 __author__ = 'Merlin'
 
-from django.contrib.auth.models import User
-from django import forms
-from django.utils.translation import ugettext_lazy as _
-
-from .models import Advertisement
-
 
 class RegistrationForm(forms.ModelForm):
-
+    """
+    form for registration.
+    """
     confirm_password = forms.CharField(label=_("Confirm Password"), required=True,
                                 widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password*', 'class': 'form-control'}))
+
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
@@ -38,6 +40,7 @@ class RegistrationForm(forms.ModelForm):
         if password != confirm_password:
             raise forms.ValidationError('Password_mismatch')
 
+
 class LoginForm(AuthenticationForm):
     """
     form for login
@@ -50,7 +53,11 @@ class LoginForm(AuthenticationForm):
         self.fields['username'].widget.attrs['placeholder'] = 'Username*'
         self.fields['password'].widget.attrs['placeholder'] = 'Password*'
 
+
 class AdvertisementAddForm(forms.ModelForm):
+    """
+    form to add an advertisement.
+    """
     class Meta:
         model = Advertisement
         exclude = ('slug',)
@@ -64,7 +71,11 @@ class AdvertisementAddForm(forms.ModelForm):
         self.fields['image'].required = True
         # self.fields['is_featured'].widget.attrs['onclick'] = "calc();"
 
+
 class AdvertisementEditForm(forms.ModelForm):
+    """
+    form to edit advertisement.
+    """
     class Meta:
         model = Advertisement
         exclude = ('is_featured',)
@@ -76,5 +87,3 @@ class AdvertisementEditForm(forms.ModelForm):
         self.fields['image'].widget.attrs['type'] = "file"
         self.fields['image'].widget.attrs['accept'] = ".jpg, .jpeg, .png"
         self.fields['image'].required = True
-        # self.fields['is_featured'].widget.attrs['onclick'] = "calc();"
-        # self.fields['is_featured'].widget.attrs['readonly'] = True

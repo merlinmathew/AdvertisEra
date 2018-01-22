@@ -1,23 +1,19 @@
-from applications.ad_payment.forms import SalePaymentForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.encoding import force_text, force_bytes
-from django.utils.html import format_html
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.safestring import mark_safe
 from django.views import generic
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import logout
-from django.contrib.auth.forms import AuthenticationForm
 
+from applications.ad_payment.forms import SalePaymentForm
 from applications.advertisements.tokens import account_activation_token
 from .forms import RegistrationForm, LoginForm, AdvertisementAddForm, AdvertisementEditForm
 from .models import Advertisement, Category
@@ -69,7 +65,6 @@ class RegisterView(FormView):
                     mail_subject, message, to=[to_email]
         )
         email.send()
-        # mm = mark_safe('<a href="www.google.com"> </a>')
         messages.success(self.request, 'Hey %s !! Please confirm your email address to complete the registration !' % user.username)
         return render(self.request,self.template_name,{'form':RegistrationForm()})
 

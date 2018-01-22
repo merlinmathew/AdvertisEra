@@ -2,6 +2,9 @@ from django.contrib.auth.models import User
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from .models import Advertisement
+from django.contrib.auth.forms import AuthenticationForm
+
+__author__ = 'Merlin'
 
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -13,7 +16,7 @@ class RegistrationForm(forms.ModelForm):
     form for registration.
     """
     confirm_password = forms.CharField(label=_("Confirm Password"), required=True,
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password*', 'class': 'form-control'}))
+                                    widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password*', 'class': 'form-control'}))
 
     class Meta:
         model = User

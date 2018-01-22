@@ -28,7 +28,11 @@ SECRET_KEY = '!ataoo(e(7dem=5xz)dxwq-v0^#0bb7a0de-dfc4zjn#xd^$c3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['*', ]
+=======
+ALLOWED_HOSTS = ['*',]
+>>>>>>> develop
 
 
 # Application definition
@@ -158,3 +162,8 @@ Database=os.environ.get('Database')
 User=os.environ.get('User')
 Port=os.environ.get('Port')
 Password=os.environ.get('Password')
+
+EMAIL_BACKEND = "sgbackend.SendGridBackend"
+SENDGRID_API_KEY = "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"
+
+DEFAULT_FROM_EMAIL = 'merlin.sayone@gmail.com'

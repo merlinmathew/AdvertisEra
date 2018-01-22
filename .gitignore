@@ -14,5 +14,4 @@ Advertisera/dev_settings.py
 db.sqlite3
 
 # media
-/static
 /media

@@ -1,1 +1,1 @@
-web: gunicorn Advertisera.wsgi --log-file -
+ web gunicorn --pythonpath src Advertisera.wsgi

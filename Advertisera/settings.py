@@ -94,12 +94,31 @@ WSGI_APPLICATION = 'Advertisera.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+
+Host=os.environ.get('Host')
+Database=os.environ.get('Database')
+User=os.environ.get('User')
+Port=os.environ.get('Port')
+Password=os.environ.get('Password')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': Database,
+           'USER': User,
+           'PASSWORD': Password,
+           'HOST': Host,
+           'PORT': Port,
+           'ATOMIC_REQUESTS': True,
+       }
+   }
 
 
 # Password validation
@@ -150,11 +169,6 @@ STRIPE_API_KEY = "sk_test_jzxu970bNZw2eaRWCN7S923m"
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-Host=os.environ.get('Host')
-Database=os.environ.get('Database')
-User=os.environ.get('User')
-Port=os.environ.get('Port')
-Password=os.environ.get('Password')
 
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
 SENDGRID_API_KEY = "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"

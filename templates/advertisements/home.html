@@ -42,6 +42,7 @@
             <div class="slider_article">
               <h2><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a></h2>
               <p>{{ advertisement.description|truncatechars:147 }}</p>
+              <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6>
             </div>
           </div>{% endif %}{% endfor %}
         </div>
@@ -66,6 +67,7 @@
                   <figure class="bsbig_fig"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="featured_img"> <img alt="" src="{{ advertisement.image.url  }}"> <span class="overlay"></span> </a>
                     <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a> </figcaption>
                     <p>{{ advertisement.description|truncatechars:129 }}</p>
+                    <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6>
                   </figure>
                 </li>
               </ul>
@@ -80,7 +82,8 @@
              {% if advertisement.category.category == "Business" %}
                 <li>
                   <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{% static 'images/post_img1.jpg' %}"> </a>
-                    <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a> </div>
+                    <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a><h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6></div>
+
                   </div>
                 </li>
             {% endif %}
@@ -99,8 +102,9 @@
                 <ul class="business_catgnav wow fadeInDown">
                   <li>
                     <figure class="bsbig_fig"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="featured_img"> <img alt="" src="{{ advertisement.image.url }}"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a> </figcaption>
+                      <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a></figcaption>
                       <p>{{ advertisement.description|truncatechars:129 }}</p>
+                      <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6>
                     </figure>
                   </li>
                 </ul>
@@ -110,8 +114,8 @@
                  {% for advertisement in advertisements %}
                  {% if advertisement.category.category == "Fashion" %}
                   <li>
-                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
-                      <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a> </div>
+                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{{ advertisement.image.url }}"> </a>
+                      <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a><h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6> </div>
                     </div>
                   </li>
                 {% endif %}{% endfor %}
@@ -127,8 +131,9 @@
                 <ul class="business_catgnav">
                   <li>
                     <figure class="bsbig_fig wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="featured_img"> <img alt="" src="{{ advertisement.image.url }}"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a> </figcaption>
+                      <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a></figcaption>
                       <p>{{ advertisement.description|truncatechars:129 }}</p>
+                      <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6>
                     </figure>
                   </li>
                 </ul>
@@ -139,8 +144,8 @@
                  {% for advertisement in advertisements %}
                  {% if advertisement.category.category == "Technology" %}
                   <li>
-                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{% static 'images/post_img2.jpg' %}"> </a>
-                      <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a> </div>
+                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{{ advertisement.image.url }}"> </a>
+                      <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a> <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6></div>
                     </div>
                   </li>
                  {% endif %}
@@ -157,7 +162,7 @@
              {% if advertisement.category.category == "Other Assort" %}
               <li>
                 <div class="photo_grid">
-                  <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="{{ advertisement.image.url }}" title="Photography Ttile 1"> <img src="{{ advertisement.image.url }}" alt=""/></a> </figure>
+                  <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="{{ advertisement.image.url }}" title="Photography Ttile 1"> <img src="{{ advertisement.image.url }}#disqus_thread" alt=""/></a> </figure>
                 </div>
               </li>
               {% endif %}{% endfor %}
@@ -174,7 +179,7 @@
                 <li>
                   <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="{% url 'advertisement-detail' slug=advertisement.slug %}"> <img src="{{ advertisement.image.url }}" alt=""> <span class="overlay"></span> </a>
                     <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a> </figcaption>
-                    <p>{{ advertisement.description|truncatechars:129 }}</p>
+                    <p>{{ advertisement.description|truncatechars:129 }}</p><h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6>
                   </figure>
                 </li>
               </ul>
@@ -186,7 +191,7 @@
              {% if advertisement.category.category == "Life & Style" %}
                 <li>
                   <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{{ advertisement.image.url }}"> </a>
-                    <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a> </div>
+                    <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a> <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6></div>
                   </div>
                 </li>
                 {% endif %}{% endfor %}

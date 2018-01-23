@@ -70,11 +70,11 @@
               <li><a class="lavendera" href="{% url 'home' %}">Home</a></li>
               <li><a class="lavendera" href="{% url 'about' %}">About</a></li>
               <li><a class="lavendera" href="{% url 'contact' %}">Contact</a></li>
-              <li><a class="lavendera" href="{% url 'login' %}">Login</a></li>
               <li><a class="lavendera" href="{% url 'register' %}">Register</a></li>
               {% if user.is_authenticated %}
               <li><a class="lavendera" href="{% url 'add-advertisement' %}">Add Advertisement</a></li>
               {% else %}
+              <li><a class="lavendera" href="{% url 'login' %}">Login</a></li>
               <li><a class="lavendera" href="{% url 'login' %}">Add Advertisement</a></li>
               {% endif %}
             </ul>
@@ -117,5 +117,6 @@
 <script src="{% static 'assets/js/jquery.newsTicker.min.js' %}"></script>
 <script src="{% static 'assets/js/jquery.fancybox.pack.js' %}"></script>
 <script src="{% static 'assets/js/custom.js' %}"></script>
+<script id="dsq-count-scr" src="//https-advertisera-dep-herokuapp-com.disqus.com/count.js" async></script>
 </body>
 </html>

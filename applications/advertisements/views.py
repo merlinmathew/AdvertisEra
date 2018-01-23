@@ -20,7 +20,9 @@ from .models import Advertisement, Category
 
 
 class HomeView(TemplateView):
+
     template_name = "advertisements/home.html"
+
 
 class ContactView(TemplateView):
     template_name = "advertisements/contact.html"
@@ -28,6 +30,7 @@ class ContactView(TemplateView):
 
 class AboutView(TemplateView):
     template_name = "advertisements/about.html"
+
 
 class CategoryListingView(generic.ListView):
     model = Category
@@ -39,6 +42,7 @@ class CategoryListingView(generic.ListView):
         category = Category.objects.get(slug=slug)
         ads = Advertisement.objects.filter(category=category)
         return ads
+
 
 class RegisterView(FormView):
     """
@@ -57,8 +61,8 @@ class RegisterView(FormView):
         message = render_to_string('accounts/account_activation_email.html', {
             'user': user,
             'domain': current_site.domain,
-            'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-            'token':account_activation_token.make_token(user),
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
         })
         to_email = user.email
         email = EmailMessage(
@@ -66,11 +70,12 @@ class RegisterView(FormView):
         )
         email.send()
         messages.success(self.request, 'Hey %s !! Please confirm your email address to complete the registration !' % user.username)
-        return render(self.request,self.template_name,{'form':RegistrationForm()})
+        return render(self.request, self.template_name, {'form': RegistrationForm()})
+
 
 class AccountActivationView(FormView):
 
-    def get(self,*args,**kwargs):
+    def get(self, *args, **kwargs):
         try:
             uid = force_text(urlsafe_base64_decode(kwargs['uidb64']))
             user = User.objects.get(pk=uid)
@@ -84,7 +89,11 @@ class AccountActivationView(FormView):
         else:
             return HttpResponse('Activation link is invalid!')
 
+
 class LoginView(FormView):
+    """
+    view for login
+    """
     model = User
     template_name = 'accounts/login.html'
     form_class = LoginForm
@@ -94,40 +103,49 @@ class LoginView(FormView):
         messages.success(self.request, 'You have successfully logged in !')
         return redirect('add-advertisement')
 
+
 def logout_view(request):
+    """
+    view for logout
+    """
     logout(request)
     return redirect('home')
 
+
 class AddAdvertisementView(generic.CreateView):
     """
-    create a client
+    to create an advertisement
     """
     model = Advertisement
     success_url = reverse_lazy('home')
     form_class = AdvertisementAddForm
     template_name = 'advertisements/add_advertisement.html'
 
-    # def get(self, request, *args, **kwargs):
-    #     return render(request, self.template_name,{'create':True})
-
     def form_valid(self, form):
         form = form.save(commit=False)
-        form.created_by=self.request.user
+        form.created_by = self.request.user
         form.save()
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self, **kwargs):
         object = Advertisement.objects.latest('id')
         slug = object.slug
-        return reverse_lazy('advertisement-detail', kwargs={'slug': slug })
+        return reverse_lazy('advertisement-detail', kwargs={'slug': slug})
+
 
 class AdvertisementDetailView(generic.DetailView):
+    """
+    to display advertisement detail
+    """
     template_name = 'advertisements/advertisement_detail.html'
     context_object_name = 'advertisement'
     model = Advertisement
 
 
 class AdvertisementEditView(generic.UpdateView):
+    """
+    to edit an advertisement
+    """
     model = Advertisement
     template_name = 'advertisements/edit_advertisement.html'
     context_object_name = 'advertisement'
@@ -137,12 +155,13 @@ class AdvertisementEditView(generic.UpdateView):
         form.save()
         return HttpResponseRedirect(self.get_success_url())
 
-    def get_success_url(self , **kwargs):
+    def get_success_url(self, **kwargs):
         return reverse_lazy('advertisement-detail', kwargs={'slug': self.kwargs['slug']})
+
 
 class AdvertisementDeleteView(generic.DeleteView):
     """
-    delete client details
+    to delete an advertisement
     """
     model = Advertisement
     success_url = reverse_lazy('home')
@@ -154,12 +173,15 @@ class AdvertisementDeleteView(generic.DeleteView):
 
 
 def charge(request):
+    """
+    view for making a payment
+    """
     if request.method == "POST":
         form = SalePaymentForm(request.POST)
 
-        if form.is_valid(): # charges the card
+        if form.is_valid():  # charges the card
             return HttpResponse("Success! We've charged your card!")
     else:
         form = SalePaymentForm()
 
-    return render(request,"payment/charge.html",{'form': form} )
+    return render(request, "payment/charge.html", {'form': form})

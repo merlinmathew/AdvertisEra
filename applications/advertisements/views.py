@@ -20,19 +20,30 @@ from .models import Advertisement, Category
 
 
 class HomeView(TemplateView):
-
+    """
+    home page
+    """
     template_name = "advertisements/home.html"
 
 
 class ContactView(TemplateView):
+    """
+    contact page
+    """
     template_name = "advertisements/contact.html"
 
 
 class AboutView(TemplateView):
+    """
+    about page
+    """
     template_name = "advertisements/about.html"
 
 
 class CategoryListingView(generic.ListView):
+    """
+    to list advertisements under a particular category
+    """
     model = Category
     template_name = 'advertisements/category_listing.html'
     context_object_name = 'ads'
@@ -74,7 +85,9 @@ class RegisterView(FormView):
 
 
 class AccountActivationView(FormView):
-
+    """
+    view for activating an account after registration
+    """
     def get(self, *args, **kwargs):
         try:
             uid = force_text(urlsafe_base64_decode(kwargs['uidb64']))

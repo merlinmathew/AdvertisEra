@@ -175,8 +175,8 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
-# SENDGRID_API_KEY = "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"
-SENDGRID_API_KEY = "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"
+
+SENDGRID_API_KEY = "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"
 
 
 DEFAULT_FROM_EMAIL = 'merlin.sayone@gmail.com'
@@ -185,3 +185,4 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+

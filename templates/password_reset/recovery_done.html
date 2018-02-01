@@ -1,7 +1,11 @@
 {% extends "base/base.html" %}{% load i18n %}
-
-{% block title %}{% trans "New password set" %}{% endblock %}
+{% load staticfiles %}
+{% block title %}
+<!--{% trans "New password set" %}-->
+<title>Password|Advert!sera</title>
+{% endblock %}
 
 {% block content %}
-	<p>{% trans "Your password has successfully been reset. You can use it right now on the login page." %}</p>
+<p>{% trans "Password reset successful!!" %} <img class="img-center" src="{% static 'images/Success.jpg' %}" alt="success image"></p>
+
 {% endblock %}

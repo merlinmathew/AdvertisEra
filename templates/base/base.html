@@ -4,7 +4,8 @@
 
 <html>
 <head>
-<title>Advert!sera</title>
+{% block title %}
+{% endblock %}
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +25,7 @@
 <![endif]-->
 </head>
 <body>
+
 <div id="preloader">
   <div id="status">&nbsp;</div>
 </div>
@@ -43,7 +45,7 @@
           <div class="header_top_right">
             {% if user.is_authenticated %}
             <p><a class="lavendera" href="{% url 'logout' %}">Logout</a></p>
-            <p>Welcome {{ user.username }} <a class="lavendera" href="{% url 'add-advertisement' %}">Advertise Here!</a></p></br>
+            <p value="{{ request.user.is_authenticated }}" name="user" >Welcome {{ user.username }} <a class="lavendera" href="{% url 'add-advertisement' %}">Advertise Here!</a></p></br>
             {% else %}
             <p><a class="lavendera" href="{% url 'login' %}">LOG IN</a> to advertise!</p>
             {% endif %}
@@ -55,7 +57,6 @@
           <div class="logo_area"><a href="{% url 'home' %}" class="logo">Advert!sera</a></div>
         </div>
       </div>
-
     </div>
   </header>
   {% block content %}
@@ -70,7 +71,7 @@
               <li><a class="lavendera" href="{% url 'home' %}">Home</a></li>
               <li><a class="lavendera" href="{% url 'about' %}">About</a></li>
               <li><a class="lavendera" href="{% url 'contact' %}">Contact</a></li>
-              <li><a class="lavendera" href="{% url 'register' %}">Register</a></li>
+              <!--<li><a class="lavendera" href="{% url 'register' %}">Register</a></li>-->
               {% if user.is_authenticated %}
               <li><a class="lavendera" href="{% url 'add-advertisement' %}">Add Advertisement</a></li>
               {% else %}
@@ -97,7 +98,7 @@
             <h2>Contact</h2>
             <a class="lavendera" href="{% url 'contact' %}"><p>Contact Us To Drop In Any Kind Of Query.Eagerly Waiting For Your Response Folks!!!!!</p></a>
             <address>
-            {{ get_address.company }}
+            {{ get_address }}
             </address>
           </div>
         </div>
@@ -118,5 +119,7 @@
 <script src="{% static 'assets/js/jquery.fancybox.pack.js' %}"></script>
 <script src="{% static 'assets/js/custom.js' %}"></script>
 <script id="dsq-count-scr" src="//https-advertisera-dep-herokuapp-com.disqus.com/count.js" async></script>
+{% block jquery %}{% endblock %}
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-590d63c060ee75af"></script>
 </body>
 </html>

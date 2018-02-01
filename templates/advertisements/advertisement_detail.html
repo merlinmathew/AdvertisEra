@@ -1,14 +1,53 @@
 {% extends "base/base.html" %}
 {% load advertisement_tag %}
 {% load staticfiles %}
+{% block title %}<title>Advert!sera|Detail</title>{% endblock %}
 {% block content %}
+
+
   <section id="contentSection">
+{% if advertisement.is_featured == False and advertisement.created_by == user %}
+ <!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Feature Your Advertisement!!</h2>
+    </div>
+    <div class="modal-body">
+      <p>Looks like your advertisement,"{{ advertisement.title }}" has not been featured yet.If you want to you can make a payment here :) </p>
+      <form action="/pay/{{ advertisement.slug }}/" method="post">
+        {% csrf_token %}
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_Oj0Jn8JXLAHJPx8KjTJOJfFK"
+          data-amount="2000"
+          data-name="Stripe.com"
+          data-description="2 widgets"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto"
+          data-zip-code="true">
+        </script>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <h3>Team Advertisera</h3>
+    </div>
+  </div>
+</div>
+{% endif %}
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
           <div class="single_page">
-
             <h1>{{ advertisement.title }}</h1><span class="recommend-icon icon-heart-empty"></span>
+            {% if user.is_authenticated %}
+             {% get_like user advertisement as likes %}
+            <button id="like-ad" {% if likes %}class="fa fa-thumbs-up lavendera" {% else %} class="fa fa-thumbs-up" {% endif %}" aria-hidden="true"></button>
+            {% endif %}
+            <h4 class="lavendera">{% for message in messages %}{{ message }}{% endfor %}</h4>
+
             <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>{{ advertisement.created_by.username }}</a> <span><i class="fa fa-calendar"></i>{{ advertisement.created }}</span> <a href="#"><i class="fa fa-tags"></i>{{ advertisement.category.category }}</a> </div>
             <div class="single_page_content"> <img class="img-center" src="{{ advertisement.image.url }}" alt="">
               <span class="recommend-icon icon-heart-empty"></span>
@@ -49,46 +88,32 @@
             </script>
             <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </div>
-            <div class="social_link">
-              <ul class="sociallink_nav">
-                <li><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
-                <li><a target="_blank" href="https://twitter.com/login"><i class="fa fa-twitter"></i></a></li>
-                <li><a target="_blank" href="https://accounts.google.com/"><i class="fa fa-google-plus"></i></a></li>
-                <li><a target="_blank" href="https://www.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
-                <li><a target="_blank" href="https://in.pinterest.com/login/"><i class="fa fa-pinterest"></i></a></li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
         <aside class="right_content">
-          <!--<div class="single_sidebar">-->
-            <!--<h2><span>Related Posts<i class="fa fa-thumbs-o-up"></i></span></h2>-->
-            <!--<ul class="spost_nav">-->
-            <!--{% advertisement_list as advertisements %}-->
-            <!--{% for ad in advertisements %}-->
-              <!--{% if ad.category == advertisement.category %}-->
-              <!--{% if ad.id != advertisement.id %}-->
-              <!--<li>-->
-                <!--<div class="media wow fadeInDown"> <a href="/advertisera/advertisement-detail/{{ ad.slug }}/" class="media-left"> <img alt="" src="{{ ad.image.url }}"> </a>-->
-                  <!--<div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ ad.title|truncatechars:44 }}</a> </div>-->
-                <!--</div>-->
-              <!--</li>-->
-              <!--{% endif %}-->
-              <!--{% endif %}-->
-              <!--{% endfor %}-->
-            <!--</ul>-->
-
-
-
-
-
-          <!--</div>-->
+          <div class="single_sidebar">
+            <h2><span>Related Posts<i class="fa fa-thumbs-o-up"></i></span></h2>
+            <ul class="spost_nav">
+            {% advertisement_list as advertisements %}
+            {% for ad in advertisements %}
+              {% if ad.category == advertisement.category %}
+              {% if ad.id != advertisement.id %}
+              <li>
+                <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=ad.slug %}" class="media-left"> <img alt="" src="{{ ad.image.url }}"> </a>
+                  <div class="media-body"> <a href="{% url 'advertisement-detail' slug=ad.slug %}" class="catg_title">{{ ad.title|truncatechars:44 }}</a> </div>
+                </div>
+              </li>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
           <div class="single_sidebar">
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
-              <!--<li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Video</a></li>-->
+              <!--<li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Search</a></li>-->
               <li role="presentation"><a href="#comments" aria-controls="messages" role="tab" data-toggle="tab">Latest Ads</a></li>
             </ul>
             <div class="tab-content">
@@ -100,11 +125,11 @@
                    {% endfor %}
                 </ul>
               </div>
-              <!--<div role="tabpanel" class="tab-pane" id="video">-->
+             <div role="tabpanel" class="tab-pane" id="video">
                 <!--<div class="vide_area">-->
                   <!--<iframe width="100%" height="250" src="http://www.youtube.com/embed/h5QWbURNEpA?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>-->
                 <!--</div>-->
-              <!--</div>-->
+              </div>
               <div role="tabpanel" class="tab-pane" id="comments">
                 <ul class="spost_nav">
                   {% advertisement_list as advertisements %}
@@ -120,10 +145,57 @@
               </div>
             </div>
           </div>
-
-
         </aside>
       </div>
     </div>
   </section>
 {% endblock %}
+{% block jquery %}
+
+<!--//to perform like-->
+<script type="application/javascript" >
+var span = document.getElementsByClassName("close")[0];
+$( document ).ready(function() {
+    $('#myModal').modal('show');
+});
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+<script type="application/javascript" >
+$(document).on('click', '#like-ad', function(){
+
+      $.ajax({
+               type: "post",
+               url: "/like-ad/{{ advertisement.slug }}/",
+               dataType: 'json',
+               processData: false, // Don't process the files
+               contentType: false,
+               beforeSend: function (xhr, settings) { // to send csrf token
+                   xhr.setRequestHeader("X-CSRFToken", $csrfmiddlewaretoken);
+               },
+               success: function(response) {
+                   if(response.status == 'liked' ) {
+                       var d = document.getElementById("like-ad");
+                       d.className += " orangera";
+
+                   }
+                   else if(response.status == 'unliked' ){
+                       var d = document.getElementById("like-ad");
+                       d.classList.remove("orangera");
+                       d.classList.remove("lavendera");
+                   }
+                },
+                error: function(rs, e) {
+                       alert(rs.responseText);
+                }
+          });
+    })
+</script>
+{% endblock %}
+

@@ -1,20 +1,28 @@
+import json
+from applications.likes.models import Like
+from applications.ad_payment.forms import SalePaymentForm
+from applications.ad_payment.models import AdvertisementPayment
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
+from django.core import serializers
 from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.encoding import force_text, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views import generic
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, View
 from django.contrib.auth import logout
+from django.db.models import Q
 
-from applications.ad_payment.forms import SalePaymentForm
-from applications.advertisements.tokens import account_activation_token
+import stripe
+
+from .tokens import account_activation_token
 from .forms import RegistrationForm, LoginForm, AdvertisementAddForm, AdvertisementEditForm
 from .models import Advertisement, Category
 
@@ -25,12 +33,11 @@ class HomeView(TemplateView):
     """
     template_name = "advertisements/home.html"
 
-
-class ContactView(TemplateView):
+class InactiveLinkView(TemplateView):
     """
-    contact page
+    expired link cone
     """
-    template_name = "advertisements/contact.html"
+    template_name = "accounts/invalid_link.html"
 
 
 class AboutView(TemplateView):
@@ -98,10 +105,13 @@ class AccountActivationView(FormView):
             user.is_active = True
             user.save()
             login(self.request, user)
-            return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+            messages.success(self.request, 'Welcome to Advertisera %s ! You may now advertise here :D!!' % user.username)
+            return redirect('add-advertisement')
         else:
-            return HttpResponse('Activation link is invalid!')
+            return HttpResponseRedirect(self.get_success_url())
 
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('expired')
 
 class LoginView(FormView):
     """
@@ -165,6 +175,8 @@ class AdvertisementEditView(generic.UpdateView):
     form_class = AdvertisementEditForm
 
     def form_valid(self, form):
+        form = form.save(commit=False)
+        form.created_by = self.request.user
         form.save()
         return HttpResponseRedirect(self.get_success_url())
 
@@ -185,16 +197,94 @@ class AdvertisementDeleteView(generic.DeleteView):
         return self.post(request, *args, **kwargs)
 
 
-def charge(request):
+class PayView(generic.RedirectView):
     """
     view for making a payment
     """
-    if request.method == "POST":
-        form = SalePaymentForm(request.POST)
+    def post(self, *args, **kwargs):
+        print("gdsgdggs",self.request.POST)
+        stripe.api_key = settings.STRIPE_API_KEY
+        user = self.request.user
+        slug = self.kwargs['slug']
+        current_site = get_current_site(self.request)
+        ad = get_object_or_404(Advertisement, slug=slug)
+        new_payment = AdvertisementPayment(
+            advertisement = ad,
+        )
+        token = self.request.POST.get("stripeToken")
+        email = self.request.POST.get("stripeEmail")
+        print("WeeMAIL",email)
+        try:
+            charge = stripe.Charge.create(
+                amount = 2000,
+                currency = "usd",
+                source = token,
+                description = "The product charged to the user"
+            )
+            new_payment.transaction_id  = charge.id
+            new_payment.save()
+            mail_subject = 'Advertisera-Payment Successful!'
+            message = render_to_string('payment/payment_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'transaction_id': new_payment.transaction_id
+            })
+            to_email = email
+            email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+            )
+            email.send()
+            ad.is_featured = True
+            ad.save()
+            messages.success(self.request, 'You Advertisement Has Been Featured!Check your email for transactional details!')
+            return HttpResponseRedirect(self.get_success_url(slug))
+        except stripe.error.CardError as ce:
+            return False, ce
 
-        if form.is_valid():  # charges the card
-            return HttpResponse("Success! We've charged your card!")
-    else:
-        form = SalePaymentForm()
+    def get_success_url(self, slug, **kwargs):
+        return reverse_lazy('advertisement-detail', kwargs={'slug': slug })
 
-    return render(request, "payment/charge.html", {'form': form})
+
+class LikeView(generic.RedirectView):
+    """
+    like view
+    """
+    def post(self, *args, **kwargs):
+        result = {}
+        slug = self.kwargs['slug']
+        user =  self.request.user
+        ad = get_object_or_404(Advertisement, slug=slug)
+        likes = Like.objects.filter(user=user, advertisement=ad)
+        if likes.exists():
+            likes.delete()
+            result['status'] = 'unliked'
+            return HttpResponse (json.dumps(result), content_type='application/json')
+        else:
+            Like.objects.create(user=user, advertisement=ad)
+            result['status'] = 'liked'
+            return HttpResponse (json.dumps(result), content_type='application/json')
+
+
+class SearchAdView(generic.TemplateView):
+    """
+    search view
+    """
+    template_name = 'advertisements/categories.html'
+
+    def get(self, request, *args, **kwargs):
+        ad_search = self.request.GET.get('ad_search')
+        result = {}
+        advertisements = Advertisement.objects.all()
+        if ad_search:
+            advertisements_filtered = advertisements.filter(Q(category__category__icontains=ad_search)|
+                Q(title__icontains=ad_search) )
+            if advertisements_filtered:
+                advertisements_filtered = list(advertisements_filtered.values('title','slug'))
+                result['advs'] = advertisements_filtered
+                result['status'] = 'searched'
+                return HttpResponse (json.dumps(result), content_type='application/json')
+            else:
+                result['status'] = 'na-searched'
+                return HttpResponse (json.dumps(result), content_type='application/json')
+        result['status'] = 'no-data'
+        return HttpResponse(json.dumps(result), content_type='application/json')

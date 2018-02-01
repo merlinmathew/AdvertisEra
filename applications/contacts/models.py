@@ -18,7 +18,7 @@ class Contact(base_models.TimeStampedModelBase):
         verbose_name_plural = _('Contacts')
 
     def __str__(self):
-        return str(self.name[:10])+"..."
+        return self.name
 
 
 class AdvertiseraAddress(SingletonModel):
@@ -31,34 +31,7 @@ class AdvertiseraAddress(SingletonModel):
     address = models.TextField(verbose_name=_('Address'))
 
     class Meta:
-        verbose_name = _("AdvertiseraAddress")
+        verbose_name = _("Advertisera Address")
 
     def __str__(self):
         return self.company
-
-# class SocialIconsSetting(models.Model):
-#     """
-#     Admin's control over the social media icons.
-#     """
-#     TAB_CHOICES = (
-#         ('_blank', 'Open_in_new_tab'),
-#         ('_parent', 'Open_in_current_tab'),
-#     )
-#     ICON_CHOICES = (
-#         ('facebook', 'Facebook'),
-#         ('twitter', 'Twitter'),
-#         ('Instagram', 'Instagram'),
-#     )
-#     icon = models.CharField(max_length=10, choices=ICON_CHOICES)
-#     url = models.CharField(max_length=60)
-#     sort_order = models.IntegerField()
-#     target = models.CharField(max_length=10, choices=TAB_CHOICES)
-#     publish = models.BooleanField(default=True)
-#
-#     class Meta:
-#         abstract = False
-#         verbose_name = _('Social Icons')
-#         verbose_name_plural = _('Social Icons Settings')
-#
-#     def __str__(self):
-#         return self.icon

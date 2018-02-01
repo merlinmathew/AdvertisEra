@@ -1,8 +1,16 @@
 {% extends "base/base.html" %}
+{% load staticfiles %}
 {% load i18n %}
 
-{% block title %}{% trans "Password recovery sent" %}{% endblock %}
+{% block title %}
+<!--{% trans "Password recovery sent" %}-->
+<title>Password|Advert!sera</title>
+{% endblock %}
 
 {% block content %}
-	<p>{% blocktrans with ago=timestamp|timesince %}An email was sent to <strong>{{ email }}</strong> {{ ago }} ago. Use the link in it to set a new password.{% endblocktrans %}</p>
+    </br>
+     <img class="img-center" src="{% static 'images/emailsent.png' %}" alt="">
+	<p>{% blocktrans with ago=timestamp|timesince %}An email was sent to <strong>{{ email }}</strong> {{ ago }} ago.</p> <br/>
+    <p>Use the link in it to set a new password.{% endblocktrans %}</p>
+    </br></br>
 {% endblock %}

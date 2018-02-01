@@ -3,7 +3,7 @@
          <div class="single_sidebar">
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
-              <!--<li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Video</a></li>-->
+              <li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Search</a></li>
               <li role="presentation"><a href="#comments" aria-controls="messages" role="tab" data-toggle="tab">Latest Ads</a></li>
             </ul>
             <div class="tab-content">
@@ -15,11 +15,15 @@
                    {% endfor %}
                 </ul>
               </div>
-              <!--<div role="tabpanel" class="tab-pane" id="video">-->
-                <!--<div class="vide_area">-->
-                  <!--<iframe width="100%" height="250" src="http://www.youtube.com/embed/h5QWbURNEpA?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>-->
-                <!--</div>-->
-              <!--</div>-->
+              <div role="tabpanel" class="tab-pane" id="video">
+                 <input type="text" required class="form-control" id="ad_search" >
+                 <button id="search-ad" class="form_submission form-control" type="submit">Submit</button>
+                <div id="refershit">
+                <ul id="checkcheck" >
+                  <li id="no-result" style="display: None" class="cat-item">No Search Results!</li>
+                  <li id="no-entry" style="display: None" class="cat-item">Enter An Advertisement Title!</li>
+                </ul></div>
+              </div>
               <div role="tabpanel" class="tab-pane" id="comments">
                 <ul class="spost_nav">
                   {% advertisement_list as advertisements %}
@@ -35,3 +39,4 @@
             </div>
           </div>
       </div>
+

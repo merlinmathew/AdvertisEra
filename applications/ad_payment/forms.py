@@ -8,13 +8,13 @@ from django import forms
 from .models import Sale
 
 class CreditCardField(forms.IntegerField):
-    def clean(self, value):
+    # def clean(self, value):
         """Check if given CC number is valid and one of the
            card types we accept"""
-        if value and (len(value)< 13 or len(value)> 16):
-            raise forms.ValidationError("Please enter in a valid "+\
-                "credit card number.")
-        return super(CreditCardField, self).clean(value)
+        # if len(value)> 16:
+        #     raise forms.ValidationError("Please enter in a valid "+\
+        #         "credit card number.")
+        # return super(CreditCardField, self).clean(value)
 
 class CCExpWidget(forms.MultiWidget):
     """ Widget containing two select boxes for selecting the month and year"""
@@ -75,6 +75,7 @@ class SalePaymentForm(forms.Form):
     expiration = CCExpField(required=True, label="Expiration")
     cvc = forms.IntegerField(required=True, label="CCV Number",
         max_value=9999, widget=forms.TextInput(attrs={'size': '4'}))
+    amount = forms.IntegerField(required=True, label="Enter Amount", widget=forms.TextInput())
 
     def clean(self):
         """
@@ -86,18 +87,15 @@ class SalePaymentForm(forms.Form):
 
         if not self.errors:
             number = self.cleaned_data["number"]
+            token = 'tok_visa'
             exp_month = self.cleaned_data["expiration"].month
             exp_year = self.cleaned_data["expiration"].year
             cvc = self.cleaned_data["cvc"]
-
+            amount = self.cleaned_data["amount"]
             sale = Sale()
-
-            # let's charge $10.00 for this particular item
-            success, instance = sale.charge(1000, number, exp_month,
-                                                exp_year, cvc)
-
+            success, instance = sale.charge(number, amount, exp_month, exp_year, cvc)
             if not success:
-                raise forms.ValidationError("Error: %s" % instance.message)
+                raise forms.ValidationError("Error: %s" % instance)
             else:
                 instance.save()
                 # we were successful! do whatever you will here...
@@ -105,3 +103,4 @@ class SalePaymentForm(forms.Form):
                 pass
 
         return cleaned
+

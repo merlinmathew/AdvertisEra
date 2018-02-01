@@ -1,0 +1,9 @@
+{% extends "base/base.html" %}
+{% load advertisement_tag %}
+{% load staticfiles %}
+{% block content %}
+ {% autoescape off %}
+Hi {{ user.username }},
+Thank You For Your Feedback.We will get back to you:)
+{% endautoescape %}
+{% endblock %}

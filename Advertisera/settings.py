@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*', 'advertisera-dep.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'password_reset'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -164,6 +167,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
 STRIPE_API_KEY = "sk_test_jzxu970bNZw2eaRWCN7S923m"
 
 
@@ -171,11 +175,13 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
-SENDGRID_API_KEY = "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"
+# SENDGRID_API_KEY = "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"
+SENDGRID_API_KEY = "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"
+
 
 DEFAULT_FROM_EMAIL = 'merlin.sayone@gmail.com'
 
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
+try:
+    from .local_settings import *
+except ImportError:
+    pass

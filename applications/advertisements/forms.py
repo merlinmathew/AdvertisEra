@@ -8,8 +8,6 @@ __author__ = 'Merlin'
 
 from django.contrib.auth.forms import AuthenticationForm
 
-__author__ = 'Merlin'
-
 
 class RegistrationForm(forms.ModelForm):
     """
@@ -21,9 +19,9 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
-        # widgets = {
-        #     'password': forms.PasswordInput(),
-        # }
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
@@ -36,13 +34,32 @@ class RegistrationForm(forms.ModelForm):
 
     def clean(self):
         """
-        cleaning password.
+        to clean password.
         """
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
         if password != confirm_password:
             raise forms.ValidationError('Password_mismatch')
 
+    def clean_username(self):
+        """
+        to clean username.
+        """
+        username = self.cleaned_data.get('username')
+        user = User.objects.filter(username=username).exists()
+        if user:
+            raise forms.ValidationError('This username has been taken.Please Try Another One :)')
+        return username
+
+    def clean_email(self):
+        """
+        to clean username.
+        """
+        email = self.cleaned_data.get('email')
+        user = User.objects.filter(email=email).exists()
+        if user:
+            raise forms.ValidationError('This email has been taken.Please Try Another One :)')
+        return email
 
 class LoginForm(AuthenticationForm):
     """
@@ -72,7 +89,7 @@ class AdvertisementAddForm(forms.ModelForm):
         self.fields['image'].widget.attrs['type'] = "file"
         self.fields['image'].widget.attrs['accept'] = ".jpg, .jpeg, .png"
         self.fields['image'].required = True
-        # self.fields['is_featured'].widget.attrs['onclick'] = "calc();"
+        self.fields['is_featured'].widget.attrs['onclick'] = "calc();"
 
 
 class AdvertisementEditForm(forms.ModelForm):

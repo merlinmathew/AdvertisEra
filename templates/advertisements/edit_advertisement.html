@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load advertisement_tag %}
 {% load staticfiles %}
+{% block title %}<title>Edit|Advert!sera</title>{% endblock %}
 {% block content %}
   <section id="contentSection">
     <div class="row">
@@ -8,7 +9,7 @@
         <div class="left_content">
           <div class="contact_area">
             <h2>Edit Advertisement</h2>
-            <form novalidate action="/advertisera/advertisement-edit/{{ advertisement.slug }}/" method="post" class="contact_form" enctype="multipart/form-data">
+            <form novalidate action="{% url 'advertisement-edit' slug={{ advertisement.slug }}" method="post" class="contact_form" enctype="multipart/form-data">
                 {% csrf_token %}{{ form.non_field_errors }}
                 <span class="feature_span">Title* :{{ form.title.errors }}{{ form.title }}</span>
                 <span class="feature_span">Category* :{{ form.category.errors }}{{ form.category }}</span>

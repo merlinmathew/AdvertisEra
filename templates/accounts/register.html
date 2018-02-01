@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load advertisement_tag %}
 {% load staticfiles %}
+{% block title %}<title>Register|Advert!sera</title>{% endblock %}
 {% block content %}
   <section id="contentSection">
     <div class="row">
@@ -8,12 +9,12 @@
         <div class="left_content">
           <div class="contact_area">
             <h2>Register</h2>
-            <form novalidate action="/advertisera/register/" method="post" class="contact_form">
+            <form novalidate action="{% url 'register' %}" method="post" class="contact_form">
                 {% csrf_token %}{{ form.non_field_errors }}
                 {{ form.username.errors }}{{ form.username }}
                 {{ form.email.errors }}{{ form.email }}
-                {{ form.password.errors }}{{ form.password }}
-                {{ form.confirm_password.errors }}{{ form.confirm_password }}
+                {{ form.password.errors }}{{ form.password }}</br></br>
+                {{ form.confirm_password.errors }}{{ form.confirm_password }}</br>
               <button class="form_submission" type="submit">Submit</button></br>
               {% for message in messages %} {{ message }} {% endfor %}
             </form>

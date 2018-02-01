@@ -1,6 +1,7 @@
 {% extends "base/base.html" %}
 {% load advertisement_tag %}
 {% load staticfiles %}
+{% block title %}<title>Category|Advert!sera</title>{% endblock %}
 {% block content %}
   <section id="contentSection">
     <div class="row">
@@ -9,8 +10,12 @@
           <div class="single_page">
             <h1></h1>
             <div class="post_commentbox"> </div>
-            <h1>{{ category.category}}</h1>
-            <div class="single_page_content"> <img class="img-center" src="{% static 'images/featured_img1.jpg' %}" alt="">
+              {% if ads %}
+              {% for ad in ads|slice:":1" %}
+              <h1>Category : {{ ad.category.category}}</h1>
+            <div class="single_page_content"> <img class="img-center" src="{{ ad.category.image.url }}" alt="">
+              {% endfor %}
+              {% endif %}
               {% if ads %}
               {% for ad in ads %}
               <a href="{% url 'advertisement-detail' slug=ad.slug %}"><h5>{{ forloop.counter }} - {{ ad.title }}</h5></a>
@@ -20,24 +25,33 @@
               <h1 class="lavendera">Sorry! No advertisement under this category!</h1>
               {% endif %}
             </div>
-            <div class="social_link">
-              <ul class="sociallink_nav">
-                <li><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
-                <li><a target="_blank" href="https://twitter.com/login"><i class="fa fa-twitter"></i></a></li>
-                <li><a target="_blank" href="https://accounts.google.com/"><i class="fa fa-google-plus"></i></a></li>
-                <li><a target="_blank" href="https://www.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
-                <li><a target="_blank" href="https://in.pinterest.com/login/"><i class="fa fa-pinterest"></i></a></li>
-              </ul>
-            </div>
 
           </div>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
+         <aside class="right_content">
+            <div class="single_sidebar">
+            <h2><span>Related Posts<i class="fa fa-thumbs-o-up"></i></span></h2>
+            <ul class="spost_nav">
+            {% advertisement_list as advertisements %}
+            {% for ad in advertisements %}
+              {% if ad.category == advertisement.category %}
+              {% if ad.id != advertisement.id %}
+              <li>
+                <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{{ ad.image.url }}"> </a>
+                  <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ ad.title|truncatechars:44 }}</a> </div>
+                </div>
+              </li>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
          <div class="single_sidebar">
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
-              <!--<li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Video</a></li>-->
+              <!--<li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Search</a></li>-->
               <li role="presentation"><a href="#comments" aria-controls="messages" role="tab" data-toggle="tab">Latest Ads</a></li>
             </ul>
             <div class="tab-content">
@@ -68,6 +82,7 @@
               </div>
             </div>
           </div>
+         </aside>
       </div>
     </div>
   </section>

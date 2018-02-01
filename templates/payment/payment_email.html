@@ -1,0 +1,9 @@
+
+ {% autoescape off %}
+Hi {{ user.username }},
+Congrats!!
+You just made a succesful payment!
+Your advertisement has been FEATURED in the Advertisera Site!!
+You may get a glance of it here: http://{{ domain }}{% url 'home' %}
+TRANSACTION ID : {{ transaction_id }}
+{% endautoescape %}

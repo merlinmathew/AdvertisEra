@@ -1,0 +1,26 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}<title>Contact|Advert!sera</title>{% endblock %}
+{% block content %}
+  <section id="contentSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="left_content">
+          <div class="contact_area">
+            <h2>Contact Us</h2>
+            <h5>Contact us for any kind of query or feedback.We appreciate and value your opinions!</h5>
+            <form novalidate action="{% url 'contact' %}" class="contact_form" method="post">
+            <h4 class="lavendera">{% for message in messages %}{{ message }}{% endfor %}</h4>
+                {% csrf_token %}{{ form.non_field_errors }}
+                {{ form.name.errors }}{{ form.name }}
+                {{ form.email.errors }}{{ form.email }}
+                {{ form.message.errors }}{{ form.message }}
+             <button type="submit" class="form_submission">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% include "advertisements/categories.html" %}
+    </div>
+  </section>
+{% endblock %}

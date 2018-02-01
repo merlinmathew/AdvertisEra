@@ -1,3 +1,37 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+from django.template.loader import render_to_string
+from django.urls import reverse_lazy
+from django.views import generic
+from .forms import ContactForm
+from .models import Contact
 
-# Create your views here.
+
+class ContactView(generic.CreateView):
+    """
+    contact page
+    """
+    model = Contact
+    form_class = ContactForm
+    template_name = 'contact/contact.html'
+
+    def form_valid(self, form):
+        form = form.save(commit=False)
+        current_site = get_current_site(self.request)
+        mail_subject = 'Advertisera-Contact Form Submission Succesful!'
+        message = render_to_string('contact/contact_response.html', {
+            'user': form.name,
+        })
+        to_email = form.email
+        email = EmailMessage(
+                    mail_subject, message, to=[to_email]
+        )
+        email.send()
+        form.save()
+        messages.success(self.request,"Oh Great! Your response has been recorded!")
+        return redirect('contact')

@@ -74,8 +74,17 @@ function calc()
 {
   if (document.getElementById('id_is_featured').checked)
   {
-      location.href="/"
-  } else {
-      alert("NOHOOOOOOO");
+      location.href="/advertisera/charge/"
   }
 }
+
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+
+// To get the csrf_token from cookie to perform post request using ajax
+var $csrfmiddlewaretoken  = getCookie('csrftoken');
+

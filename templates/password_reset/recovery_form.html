@@ -1,12 +1,16 @@
 {% extends "base/base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Password recovery" %}{% endblock %}
+{% block title %}
+<!--{% trans "Password recovery" %}-->
+<title>Password|Advert!sera</title>
+{% endblock %}
 
 {% block content %}
-	<form method="post" action="{{ url }}">
+        </br></br></br></br></br></br></br></br></br></br>
+	<form class="space" method="post" action="{{ url }}">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<p><input class="password_recovery_button" type="submit" value="{% trans "Recover my password" %}"></p>
-	</form>
+	</form></br></br></br></br></br>
 {% endblock %}

@@ -1,4 +1,6 @@
+from applications.advertisements.models import Advertisement
 from django.db import models
+from django.utils.translation import gettext as _
 
 from django.conf import settings
 
@@ -40,6 +42,7 @@ class Sale(models.Model):
                     "exp_month" : exp_month,
                     "exp_year" : exp_year,
                     "cvc" : cvc,
+                    # "source" : token,
 
                     #### it is recommended to include the address!
                     #"address_line1" : self.address1,
@@ -47,12 +50,25 @@ class Sale(models.Model):
                     #"daddress_zip" : self.zip_code,
                     #"address_state" : self.state,
                 },
+
                 description='Thank you for your purchase!')
 
             self.charge_id = response.id
 
-        except self.stripe.CardError as ce:
+        except Exception as e:
             # charge failed
-            return False, ce
-
+            return False, e
         return True, response
+
+
+class AdvertisementPayment(models.Model):
+    advertisement = models.ForeignKey(Advertisement,related_name="pay_advertisement")
+    transaction_id = models.CharField(max_length=234, blank=True)
+
+    class Meta:
+        verbose_name = _("Advertisement Payment")
+        verbose_name_plural = _("Advertisement Payment")
+
+    def __str__(self):
+        return self.transaction_id
+

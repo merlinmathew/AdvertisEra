@@ -274,7 +274,7 @@ class SearchAdView(generic.TemplateView):
         advertisements = Advertisement.objects.all()
         if ad_search:
             advertisements_filtered = advertisements.filter(Q(category__category__icontains=ad_search) |
-                Q(title__icontain=ad_search))
+                Q(title__icontains=ad_search))
             if advertisements_filtered:
                 advertisements_filtered = list(advertisements_filtered.values('title', 'slug'))
                 result['advs'] = advertisements_filtered

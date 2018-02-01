@@ -1,12 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth import login
-from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
 from django.views import generic
 from .forms import ContactForm
 from .models import Contact
@@ -14,7 +10,7 @@ from .models import Contact
 
 class ContactView(generic.CreateView):
     """
-    contact page
+    For Feedbacks
     """
     model = Contact
     form_class = ContactForm
@@ -33,5 +29,5 @@ class ContactView(generic.CreateView):
         )
         email.send()
         form.save()
-        messages.success(self.request,"Oh Great! Your response has been recorded!")
+        messages.success(self.request, "Oh Great! Your response has been recorded!")
         return redirect('contact')

@@ -13,9 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from applications.advertisements.views import HomeView
 from django.conf import settings
-from django.conf.urls import url,include
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.utils.functional import curry
 from django.views import static
@@ -27,7 +26,7 @@ urlpatterns = [
     url(r'^', include('applications.advertisements.urls')),
     url(r'^contact', include('applications.contacts.urls')),
     url(r'^advertisera-password/', include('password_reset.urls')),
-    url(r'^media/(?P<path>.*)$', static.serve,{'document_root': settings.MEDIA_ROOT,}),
+    url(r'^media/(?P<path>.*)$', static.serve, {'document_root': settings.MEDIA_ROOT, }),
 ]
 
 handler403 = curry(permission_denied, template_name='403.html')

@@ -6,8 +6,6 @@ from django.contrib.auth.forms import AuthenticationForm
 
 __author__ = 'Merlin'
 
-from django.contrib.auth.forms import AuthenticationForm
-
 
 class RegistrationForm(forms.ModelForm):
     """
@@ -53,13 +51,14 @@ class RegistrationForm(forms.ModelForm):
 
     def clean_email(self):
         """
-        to clean username.
+        to clean email.
         """
         email = self.cleaned_data.get('email')
         user = User.objects.filter(email=email).exists()
         if user:
             raise forms.ValidationError('This email has been taken.Please Try Another One :)')
         return email
+
 
 class LoginForm(AuthenticationForm):
     """
@@ -89,7 +88,6 @@ class AdvertisementAddForm(forms.ModelForm):
         self.fields['image'].widget.attrs['type'] = "file"
         self.fields['image'].widget.attrs['accept'] = ".jpg, .jpeg, .png"
         self.fields['image'].required = True
-        self.fields['is_featured'].widget.attrs['onclick'] = "calc();"
 
 
 class AdvertisementEditForm(forms.ModelForm):

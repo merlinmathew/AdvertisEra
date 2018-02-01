@@ -1,6 +1,5 @@
 import json
 from applications.likes.models import Like
-from applications.ad_payment.forms import SalePaymentForm
 from applications.ad_payment.models import AdvertisementPayment
 from django.conf import settings
 from django.contrib import messages
@@ -32,6 +31,7 @@ class HomeView(TemplateView):
     home page
     """
     template_name = "advertisements/home.html"
+
 
 class InactiveLinkView(TemplateView):
     """
@@ -112,6 +112,7 @@ class AccountActivationView(FormView):
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('expired')
+
 
 class LoginView(FormView):
     """
@@ -202,26 +203,22 @@ class PayView(generic.RedirectView):
     view for making a payment
     """
     def post(self, *args, **kwargs):
-        print("gdsgdggs",self.request.POST)
         stripe.api_key = settings.STRIPE_API_KEY
         user = self.request.user
         slug = self.kwargs['slug']
         current_site = get_current_site(self.request)
         ad = get_object_or_404(Advertisement, slug=slug)
-        new_payment = AdvertisementPayment(
-            advertisement = ad,
-        )
+        new_payment = AdvertisementPayment(advertisement=ad,)
         token = self.request.POST.get("stripeToken")
         email = self.request.POST.get("stripeEmail")
-        print("WeeMAIL",email)
         try:
             charge = stripe.Charge.create(
-                amount = 2000,
-                currency = "usd",
-                source = token,
-                description = "The product charged to the user"
+                amount=2000,
+                currency="usd",
+                source=token,
+                description="The product charged to the user"
             )
-            new_payment.transaction_id  = charge.id
+            new_payment.transaction_id = charge.id
             new_payment.save()
             mail_subject = 'Advertisera-Payment Successful!'
             message = render_to_string('payment/payment_email.html', {
@@ -242,7 +239,7 @@ class PayView(generic.RedirectView):
             return False, ce
 
     def get_success_url(self, slug, **kwargs):
-        return reverse_lazy('advertisement-detail', kwargs={'slug': slug })
+        return reverse_lazy('advertisement-detail', kwargs={'slug': slug})
 
 
 class LikeView(generic.RedirectView):
@@ -252,17 +249,17 @@ class LikeView(generic.RedirectView):
     def post(self, *args, **kwargs):
         result = {}
         slug = self.kwargs['slug']
-        user =  self.request.user
+        user = self.request.user
         ad = get_object_or_404(Advertisement, slug=slug)
         likes = Like.objects.filter(user=user, advertisement=ad)
         if likes.exists():
             likes.delete()
             result['status'] = 'unliked'
-            return HttpResponse (json.dumps(result), content_type='application/json')
+            return HttpResponse(json.dumps(result), content_type='application/json')
         else:
             Like.objects.create(user=user, advertisement=ad)
             result['status'] = 'liked'
-            return HttpResponse (json.dumps(result), content_type='application/json')
+            return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 class SearchAdView(generic.TemplateView):
@@ -276,15 +273,15 @@ class SearchAdView(generic.TemplateView):
         result = {}
         advertisements = Advertisement.objects.all()
         if ad_search:
-            advertisements_filtered = advertisements.filter(Q(category__category__icontains=ad_search)|
-                Q(title__icontains=ad_search) )
+            advertisements_filtered = advertisements.filter(Q(category__category__icontains=ad_search) |
+                Q(title__icontain=ad_search))
             if advertisements_filtered:
-                advertisements_filtered = list(advertisements_filtered.values('title','slug'))
+                advertisements_filtered = list(advertisements_filtered.values('title', 'slug'))
                 result['advs'] = advertisements_filtered
                 result['status'] = 'searched'
-                return HttpResponse (json.dumps(result), content_type='application/json')
+                return HttpResponse(json.dumps(result), content_type='application/json')
             else:
                 result['status'] = 'na-searched'
-                return HttpResponse (json.dumps(result), content_type='application/json')
+                return HttpResponse(json.dumps(result), content_type='application/json')
         result['status'] = 'no-data'
         return HttpResponse(json.dumps(result), content_type='application/json')

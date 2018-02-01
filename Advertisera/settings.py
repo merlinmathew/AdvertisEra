@@ -17,8 +17,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # PROJECT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.path.pardir))
 
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -105,11 +103,11 @@ WSGI_APPLICATION = 'Advertisera.wsgi.application'
 # }
 
 
-Host=os.environ.get('Host')
-Database=os.environ.get('Database')
-User=os.environ.get('User')
-Port=os.environ.get('Port')
-Password=os.environ.get('Password')
+Host = os.environ.get('Host')
+Database = os.environ.get('Database')
+User = os.environ.get('User')
+Port = os.environ.get('Port')
+Password = os.environ.get('Password')
 
 DATABASES = {
        'default': {
@@ -185,4 +183,3 @@ try:
     from .local_settings import *
 except ImportError:
     pass
-

@@ -1,5 +1,4 @@
 from django.utils.translation import gettext as _
-
 from applications.utils import base_models
 from django.db import models
 from solo.models import SingletonModel

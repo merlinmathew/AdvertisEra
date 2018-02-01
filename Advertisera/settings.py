@@ -101,7 +101,7 @@ WSGI_APPLICATION = 'Advertisera.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-
+#
 
 Host = os.environ.get('Host')
 Database = os.environ.get('Database')
@@ -174,7 +174,7 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
 
-SENDGRID_API_KEY = "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"
+SENDGRID_API_KEY = "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"
 
 
 DEFAULT_FROM_EMAIL = 'merlin.sayone@gmail.com'

@@ -221,7 +221,6 @@ $(document).on('click', '#search-ad', function(){
                        $("#no-result").css("display", "none");
                        $("#no-entry").css("display", "none");
                        for (var i = 0, size = response.advs.length; i < size; i++) {
-                           alert(response.advs[i].slug)
                            $("#checkcheck").append('<li class="cat-item"><a href="/advertisement-detail/'+response.advs[i].slug+'/" value="">'+response.advs[i].title+'</a></li>');
                        }
                        $("#refershit").refresh

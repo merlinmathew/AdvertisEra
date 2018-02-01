@@ -29,7 +29,7 @@
                   {% advertisement_list as advertisements %}
                   {% for advertisement in advertisements|slice:":4"%}
                   <li>
-                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{{ advertisement.image.url }}"> </a>
+                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="ad-img" src="{{ advertisement.image.url }}"> </a>
                       <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a> </div>
                     </div>
                   </li>

@@ -49,7 +49,7 @@
             <h4 class="lavendera">{% for message in messages %}{{ message }}{% endfor %}</h4>
 
             <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>{{ advertisement.created_by.username }}</a> <span><i class="fa fa-calendar"></i>{{ advertisement.created }}</span> <a href="#"><i class="fa fa-tags"></i>{{ advertisement.category.category }}</a> </div>
-            <div class="single_page_content"> <img class="img-center" src="{{ advertisement.image.url }}" alt="">
+            <div class="single_page_content"> <img class="img-center" src="{{ advertisement.image.url }}" alt="ad-image">
               <span class="recommend-icon icon-heart-empty"></span>
               <p>{{ advertisement.description }}</p>
               <h5>ADDRESS:</h5>
@@ -101,7 +101,7 @@
               {% if ad.category == advertisement.category %}
               {% if ad.id != advertisement.id %}
               <li>
-                <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=ad.slug %}" class="media-left"> <img alt="" src="{{ ad.image.url }}"> </a>
+                <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=ad.slug %}" class="media-left"> <img alt="ad-image" src="{{ ad.image.url }}"> </a>
                   <div class="media-body"> <a href="{% url 'advertisement-detail' slug=ad.slug %}" class="catg_title">{{ ad.title|truncatechars:44 }}</a> </div>
                 </div>
               </li>
@@ -135,7 +135,7 @@
                   {% advertisement_list as advertisements %}
                   {% for advertisement in advertisements|slice:":4"%}
                   <li>
-                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{{ advertisement.image.url }}"> </a>
+                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="ad-image" src="{{ advertisement.image.url }}"> </a>
                       <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a> </div>
                     </div>
                   </li>

@@ -13,7 +13,7 @@
               {% if ads %}
               {% for ad in ads|slice:":1" %}
               <h1>Category : {{ ad.category.category}}</h1>
-            <div class="single_page_content"> <img class="img-center" src="{{ ad.category.image.url }}" alt="">
+            <div class="single_page_content"> <img class="img-center" src="{{ ad.category.image.url }}" alt="category-image">
               {% endfor %}
               {% endif %}
               {% if ads %}
@@ -39,7 +39,7 @@
               {% if ad.category == advertisement.category %}
               {% if ad.id != advertisement.id %}
               <li>
-                <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{{ ad.image.url }}"> </a>
+                <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="ad-img" src="{{ ad.image.url }}"> </a>
                   <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ ad.title|truncatechars:44 }}</a> </div>
                 </div>
               </li>
@@ -73,7 +73,7 @@
                   {% advertisement_list as advertisements %}
                   {% for advertisement in advertisements|slice:":4"%}
                   <li>
-                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="" src="{{ advertisement.image.url }}"> </a>
+                    <div class="media wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="media-left"> <img alt="ad-img" src="{{ advertisement.image.url }}"> </a>
                       <div class="media-body"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="catg_title">{{ advertisement.title }}</a> </div>
                     </div>
                   </li>

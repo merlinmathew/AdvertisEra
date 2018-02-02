@@ -226,12 +226,10 @@ $(document).on('click', '#search-ad', function(){
                        $("#refershit").refresh
                    }
                    else if(response.status == 'na-searched' ){
-                           $("#no-result").css("display", "");
-
+                           $(".no-result").attr("style","display : block");
                    }
                    else if(response.status == 'no-data' ){
-                           $("#no-entry").css("display", "");
-
+                           $(".no-entry").attr("style","display : block");
                    }
                 },
                 error: function(rs, e) {

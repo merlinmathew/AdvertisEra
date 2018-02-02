@@ -177,7 +177,7 @@ EMAIL_BACKEND = "sgbackend.SendGridBackend"
 SENDGRID_API_KEY = "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"
 
 
-DEFAULT_FROM_EMAIL = 'merlin.sayone@gmail.com'
+DEFAULT_FROM_EMAIL = 'advtisera@gmail.com'
 
 try:
     from .local_settings import *

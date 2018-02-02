@@ -174,7 +174,7 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
 
-SENDGRID_API_KEY = "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"
+SENDGRID_API_KEY = "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"
 
 
 DEFAULT_FROM_EMAIL = 'advtisera@gmail.com'

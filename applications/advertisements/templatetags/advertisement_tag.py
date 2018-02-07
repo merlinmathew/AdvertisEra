@@ -1,5 +1,5 @@
 from applications.advertisements.models import Advertisement, Category
-from applications.contacts.models import AdvertiseraAddress
+from applications.contacts.models import AdvertiseraAddress, Contact
 from applications.likes.models import Like
 
 from django import template
@@ -31,3 +31,15 @@ def get_address():
 def get_like(user,advertisement):
     likes = Like.objects.filter(user=user,advertisement=advertisement).exists()
     return likes
+
+
+@register.assignment_tag()
+def get_like_count(advertisement):
+    like_count = Like.objects.filter(advertisement=advertisement).count()
+    return like_count
+
+
+@register.assignment_tag()
+def contacts():
+    contacts = Contact.objects.all()
+    return contacts

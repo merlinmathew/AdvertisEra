@@ -30,7 +30,6 @@
     </div>
   <h4 class="lavendera">{% for message in messages %}{{ message }}{% endfor %}</h4>
   </section>
-
   <section id="sliderSection">
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">
@@ -57,17 +56,16 @@
         <div class="left_content">
           <div class="single_post_content">
             <h2><span>Business</span></h2>
-             {% advertisement_list as advertisements %}
-             {% for advertisement in advertisements %}
-             {% if advertisement.category.category == "Business" %}
-
+            {% category_list as categories %}
+            {% for category in categories %}
+            {% if category.category == "Business" %}
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
                 <li>
-                  <figure class="bsbig_fig"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="featured_img"> <img alt="ad-img" src="{{ advertisement.image.url  }}"> <span class="overlay"></span> </a>
-                    <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a> </figcaption>
-                    <p>{{ advertisement.description|truncatechars:129 }}</p>
-                    <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6>
+                  <figure class="bsbig_fig"> <a href="{% url 'category-listing' slug=category.slug %}" class="featured_img"> <img alt="ad-img" src="{{ category.image.url  }}"> <span class="overlay"></span> </a>
+                    <figcaption> <a href="{% url 'category-listing' slug=category.slug %}">{{ category.category }}</a> </figcaption>
+                    <p>{{ category.description|truncatechars:129 }}</p>
+                    <h6><a class="slider_tittle" href="{% url 'category-listing' slug=category.slug %}"></a></h6>
                   </figure>
                 </li>
               </ul>
@@ -96,15 +94,15 @@
             <div class="fashion">
               <div class="single_post_content">
                 <h2><span>Fashion</span></h2>
-                 {% advertisement_list as advertisements %}
-                 {% for advertisement in advertisements %}
-                 {% if advertisement.category.category == "Fashion" %}
-                <ul class="business_catgnav wow fadeInDown">
+                {% category_list as categories %}
+                {% for category in categories %}
+                {% if category.category == "Fashion" %}
+                  <ul class="business_catgnav wow fadeInDown">
                   <li>
-                    <figure class="bsbig_fig"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="featured_img"> <img alt="ad-image" src="{{ advertisement.image.url }}"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a></figcaption>
-                      <p>{{ advertisement.description|truncatechars:129 }}</p>
-                      <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6>
+                    <figure class="bsbig_fig"> <a href="{% url 'category-listing' slug=category.slug %}" class="featured_img"> <img alt="ad-image" src="{{ category.image.url }}"> <span class="overlay"></span> </a>
+                      <figcaption> <a href="{% url 'category-listing' slug=category.slug %}">{{ category.category }}</a></figcaption>
+                      <p>{{ category.description|truncatechars:129 }}</p>
+                      <h6><a class="slider_tittle" href="{% url 'category-listing' slug=category.slug %}"></a></h6>
                     </figure>
                   </li>
                 </ul>
@@ -125,15 +123,15 @@
             <div class="technology">
               <div class="single_post_content">
                 <h2><span>Technology</span></h2>
-                 {% advertisement_list as advertisements %}
-                 {% for advertisement in advertisements %}
-                 {% if advertisement.category.category == "Technology" %}
+                {% category_list as categories %}
+                {% for category in categories %}
+                {% if category.category == "Technology" %}
                 <ul class="business_catgnav">
                   <li>
-                    <figure class="bsbig_fig wow fadeInDown"> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}" class="featured_img"> <img alt="ad-image" src="{{ advertisement.image.url }}"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a></figcaption>
-                      <p>{{ advertisement.description|truncatechars:129 }}</p>
-                      <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6>
+                    <figure class="bsbig_fig wow fadeInDown"> <a href="{% url 'category-listing' slug=category.slug %}" class="featured_img"> <img alt="ad-image" src="{{ category.image.url }}"> <span class="overlay"></span> </a>
+                      <figcaption> <a href="{% url 'category-listing' slug=category.slug %}">{{ category.category }}</a></figcaption>
+                      <p>{{ category.description|truncatechars:129 }}</p>
+                      <h6><a class="slider_tittle" href="{% url 'category-listing' slug=category.slug %}"></a></h6>
                     </figure>
                   </li>
                 </ul>
@@ -170,16 +168,16 @@
           </div>
           <div class="single_post_content">
             <h2><span>Life & Style</span></h2>
-             {% advertisement_list as advertisements %}
-             {% for advertisement in advertisements %}
-             {% if advertisement.category.category == "Life & Style" %}
+             {% category_list as categories %}
+             {% for category in categories %}
+             {% if category.category == "Life & Style" %}
 
             <div class="single_post_content_left">
               <ul class="business_catgnav">
                 <li>
-                  <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="{% url 'advertisement-detail' slug=advertisement.slug %}"> <img src="{{ advertisement.image.url }}" alt="ad-image"> <span class="overlay"></span> </a>
-                    <figcaption> <a href="{% url 'advertisement-detail' slug=advertisement.slug %}">{{ advertisement.title }}</a> </figcaption>
-                    <p>{{ advertisement.description|truncatechars:129 }}</p><h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=advertisement.slug %}#disqus_thread"></a></h6>
+                  <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="{% url 'category-listing' slug=category.slug %}"> <img src="{{ category.image.url }}" alt="ad-image"> <span class="overlay"></span> </a>
+                    <figcaption> <a href="{% url 'category-listing' slug=category.slug %}">{{ category.category }}</a> </figcaption>
+                    <p>{{ category.description|truncatechars:129 }}</p><h6><a class="slider_tittle" href="{% url 'category-listing' slug=category.slug %}"></a></h6>
                   </figure>
                 </li>
               </ul>
@@ -221,7 +219,8 @@ $(document).on('click', '#search-ad', function(){
                        $("#no-result").css("display", "none");
                        $("#no-entry").css("display", "none");
                        for (var i = 0, size = response.advs.length; i < size; i++) {
-                           $("#checkcheck").append('<li class="cat-item"><a href="/advertisement-detail/'+response.advs[i].slug+'/" value="">'+response.advs[i].title+'</a></li>');
+//                           $("#checkcheck").append('<li class="cat-item"><a href="/advertisement-detail/'+response.advs[i].slug+'/" value="">'+response.advs[i].title+'</a></li>');
+                           $("#checkcheck").append('<li><div class="media wow fadeInDown"><a href="/advertisement-detail/'+response.advs[i].slug+'/" class="media-left"> <img alt="ad-img" src="'+response.advs[i].image+'"></a><div class="media-body"> <a href="/advertisement-detail/'+response.advs[i].slug+'/" class="catg_title">'+response.advs[i].title+'</a> </div></div></li>');
                        }
                        $("#refershit").refresh
                    }

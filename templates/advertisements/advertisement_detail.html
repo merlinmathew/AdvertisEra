@@ -12,7 +12,7 @@
   <!-- Modal content -->
   <div class="modal-content">
     <div class="modal-header">
-      <span class="close">&times;</span>
+      <!--<span class="close">&times;</span>-->
       <h2>Feature Your Advertisement!!</h2>
     </div>
     <div class="modal-body">
@@ -46,6 +46,7 @@
              {% get_like user advertisement as likes %}
             <button id="like-ad" {% if likes %}class="fa fa-thumbs-up lavendera" {% else %} class="fa fa-thumbs-up" {% endif %}" aria-hidden="true"></button>
             {% endif %}
+            {% get_like_count advertisement as count %}<span id="like_countt">{{ count }}</span> {% if count == 1 %}like{% else %}likes{% endif %}
             <h4 class="lavendera">{% for message in messages %}{{ message }}{% endfor %}</h4>
 
             <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>{{ advertisement.created_by.username }}</a> <span><i class="fa fa-calendar"></i>{{ advertisement.created }}</span> <a href="#"><i class="fa fa-tags"></i>{{ advertisement.category.category }}</a> </div>
@@ -183,6 +184,7 @@ $(document).on('click', '#like-ad', function(){
                    if(response.status == 'liked' ) {
                        var d = document.getElementById("like-ad");
                        d.className += " orangera";
+                       var mm = $('#like_countt').text();
 
                    }
                    else if(response.status == 'unliked' ){

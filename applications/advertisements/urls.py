@@ -2,7 +2,7 @@ __author__ = 'Merlin'
 
 from .views import HomeView, RegisterView, LoginView, AddAdvertisementView, AdvertisementDetailView, \
     AdvertisementEditView, AboutView, CategoryListingView, AccountActivationView, AdvertisementDeleteView, \
-    LikeView, SearchAdView, PayView, InactiveLinkView
+    LikeView, SearchAdView, PayView, InactiveLinkView, TestView
 from . import views
 
 from django.conf.urls import url
@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^pay/(?P<slug>[-\w]+)/$', PayView.as_view(), name='pay'),
     url(r'^search/$', SearchAdView.as_view(), name='search'),
     url(r'^expired/$', InactiveLinkView.as_view(), name='expired'),
+    url(r'^test/$', TestView.as_view(), name='test'),
 ]

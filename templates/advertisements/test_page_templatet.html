@@ -1,0 +1,19 @@
+{% load endless %}
+{% load advertisement_tag %}
+ {% paginate 8 contacts %}
+ {% for i in contacts %}
+                <li>
+                    <div class=""> <a href="" class="media-left"> <img alt="ad-image" src=""> </a>
+                      <div class="media-body"> <a href="" class="catg_title">{{ i.name }}</a><h6><a class="slider_tittle" href=""></a></h6> </div>
+                    </div>
+                  </li>
+ {% endfor %}
+ {% show_more %}
+ {% block jquery %}
+ $(document).ready(function(){
+         $.endlessPaginate({
+              paginateOnScroll: true,
+              paginateOnScrollMargin: 20,
+         });
+ });
+ {% endblock %}

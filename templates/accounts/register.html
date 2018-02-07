@@ -9,7 +9,7 @@
         <div class="left_content">
           <div class="contact_area">
             <h2>Register</h2>
-            <form novalidate action="{% url 'register' %}" method="post" class="contact_form">
+            <form novalidate action="." method="post" class="contact_form">
                 {% csrf_token %}{{ form.non_field_errors }}
                 {{ form.username.errors }}{{ form.username }}
                 {{ form.email.errors }}{{ form.email }}

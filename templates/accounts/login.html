@@ -9,7 +9,7 @@
         <div class="left_content">
           <div class="contact_area">
             <h2>Log In</h2>
-            <form novalidate action="{% url 'login' %}" class="contact_form" method="post">
+            <form novalidate action="." class="contact_form" method="post">
                 {% csrf_token %}{{ form.non_field_errors }}
                 {{ form.username.errors }}{{ form.username }}
                 {{ form.password.errors }}{{ form.password }}

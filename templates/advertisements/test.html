@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}<title>Home|Advert!sera</title>{% endblock %}
+{% block content %}
+                  <!--<li>-->
+                    <!--<div class="media wow fadeInDown"> <a href="" class="media-left"> <img alt="ad-image" src=""> </a>-->
+                      <!--<div class="media-body"> <a href="" class="catg_title">{{ i.name }}</a><h6><a class="slider_tittle" href=""></a></h6> </div>-->
+                    <!--</div>-->
+                  <!--</li>-->
+              <div>
+                  {% include page_template %}
+
+              </div>
+{% endblock %}
+
+{% block jquery %}
+    {{ block.super }}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+    <script>$.endlessPaginate({paginateOnScroll: true});</script>
+{% endblock %}

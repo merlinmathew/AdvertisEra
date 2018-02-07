@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from django import forms
+from django.contrib.auth.password_validation import validate_password
 from django.utils.translation import ugettext_lazy as _
 from .models import Advertisement
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, ReadOnlyPasswordHashField
 
 __author__ = 'Merlin'
 
@@ -58,6 +59,11 @@ class RegistrationForm(forms.ModelForm):
         if user:
             raise forms.ValidationError('This email has been taken.Please Try Another One :)')
         return email
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        validate_password(password)
+        return password
 
 
 class LoginForm(AuthenticationForm):

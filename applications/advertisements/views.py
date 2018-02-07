@@ -1,12 +1,12 @@
 import json
 from applications.likes.models import Like
 from applications.ad_payment.models import AdvertisementPayment
+from applications.contacts.models import Contact
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
-from django.core import serializers
 from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -18,6 +18,7 @@ from django.views import generic
 from django.views.generic import TemplateView, FormView, View
 from django.contrib.auth import logout
 from django.db.models import Q
+from endless_pagination.views import AjaxListView
 
 import stripe
 
@@ -31,6 +32,12 @@ class HomeView(TemplateView):
     home page
     """
     template_name = "advertisements/home.html"
+
+class TestView(AjaxListView):
+     model = Contact
+     paginate_by = 12
+     template_name = 'advertisements/test.htm'
+     page_template = 'advertisements/test_page_templatet.html'
 
 
 class InactiveLinkView(TemplateView):
@@ -276,7 +283,7 @@ class SearchAdView(generic.TemplateView):
             advertisements_filtered = advertisements.filter(Q(category__category__icontains=ad_search) |
                 Q(title__icontains=ad_search))
             if advertisements_filtered:
-                advertisements_filtered = list(advertisements_filtered.values('title', 'slug'))
+                advertisements_filtered = list(advertisements_filtered.values('title', 'slug', 'image'))
                 result['advs'] = advertisements_filtered
                 result['status'] = 'searched'
                 return HttpResponse(json.dumps(result), content_type='application/json')

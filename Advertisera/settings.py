@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'applications.likes',
     'applications.ad_payment',
     'django_extensions',
-    'password_reset'
+    'password_reset',
+    # 'endless_pagination'
 ]
 
 SITE_ID = 1
@@ -172,12 +173,23 @@ STRIPE_API_KEY = "sk_test_jzxu970bNZw2eaRWCN7S923m"
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
-EMAIL_BACKEND = "sgbackend.SendGridBackend"
+# EMAIL_BACKEND = "sgbackend.SendGridBackend"
 
-SENDGRID_API_KEY = "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"
+# SENDGRID_API_KEY = "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"
 
 
-DEFAULT_FROM_EMAIL = 'advtisera@gmail.com'
+DEFAULT_FROM_EMAIL = 'merlin.sayone@gmail.com'
+
+ELASTICEMAIL_API_KEY = 'c2134a3e-be27-4e55-a3b8-c8032b80c84e'
+ELASTICEMAIL_USERNAME = 'merlin.sayone@gmail.com'
+
+EMAIL_BACKEND = "applications.contacts.mail.ElasticEmailBackend"
+EMAIL_HOST = 'smtp.elasticemail.com'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'merlin.sayone@gmail.com'
+EMAIL_HOST_PASSWORD = 'c2134a3e-be27-4e55-a3b8-c8032b80c84e'
+EMAIL_USE_TLS = True
+
 
 try:
     from .local_settings import *

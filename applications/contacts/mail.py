@@ -98,6 +98,7 @@ class ElasticEmailBackend(BaseEmailBackend):
 
     def _send(self, email_message):
         """A helper method that does the actual sending."""
+        print(type(self),"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
         if not email_message.recipients():
             return False
         from_email = sanitize_address(email_message.from_email, email_message.encoding)

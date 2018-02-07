@@ -75,8 +75,7 @@ class ContactView(generic.CreateView):
 
     def form_valid(self, form):
         form = form.save(commit=False)
-        email_message = EmailMessage(subject='Advertisera-Contact Submission Successfull', body='Thank You for contacting us..We will get back to you',from_email='merlin.sayone@gmail.com', to=['merlinm.mathew07@gmail.com',])
-        email_message.send()
-        print(email_message.send(),'gggggggggggggggggggggggggggggggg')
+        send_mail = EmailMessage(subject='Advertisera-Contact Submission Successfull', body='Thank You for contacting us..We will get back to you',from_email='merlin.sayone@gmail.com', to=['merlinm.mathew07@gmail.com',])
+        send_mail.send()
         form.save()
         return redirect('contact')

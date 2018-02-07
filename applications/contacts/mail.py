@@ -190,7 +190,7 @@ class ElasticEmailBackend(BaseEmailBackend):
             return False, email_response
         return True, email_response
 
-    def send_messagess(self, email_message):
+    def send_messages(self, email_message):
         """Sends one or more EmailMessage objects and returns the number of
         email messages sent.
         """

@@ -14,12 +14,30 @@
               {% for ad in ads|slice:":1" %}
               <h1>Category : {{ ad.category.category}}</h1>
             <div class="single_page_content"> <img class="img-center" src="{{ ad.category.image.url }}" alt="category-image">
+              <h4>DESCRIPTION</h4>
+              <p>{{ad.category.description}}</p>
               {% endfor %}
               {% endif %}
               {% if ads %}
+              <h4>ADVERTISEMENTS:</h4>
               {% for ad in ads %}
-              <a href="{% url 'advertisement-detail' slug=ad.slug %}"><h5>{{ forloop.counter }} - {{ ad.title }}</h5></a>
-              <p>{{ad.description|truncatechars:400}}</p>
+              <!--<a href="{% url 'advertisement-detail' slug=ad.slug %}"><h5>{{ forloop.counter }} - {{ ad.title }}</h5></a>-->
+              <!--<p>{{ad.description|truncatechars:400}}</p>-->
+               <div class="single_post_content_left">
+                  <ul class="business_catgnav  wow fadeInDown">
+                    <li>
+                      <figure class="bsbig_fig"> <a href="{% url 'advertisement-detail' slug=ad.slug %}" class="featured_img"> <img alt="ad-img" src="{{ ad.image.url  }}"> <span class="overlay"></span> </a>
+                        <figcaption> <a href="{% url 'advertisement-detail' slug=ad.slug %}">{{ ad.title }}</a> </figcaption>
+                        <p>{{ ad.description|truncatechars:129 }}</p>
+                        <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=ad.slug %}"></a></h6>
+                      </figure>
+                    </li>
+                  </ul>
+                </div>
+
+
+
+
               {% endfor %}
               {% else %}
               <h1 class="lavendera">Sorry! No advertisement under this category!</h1>

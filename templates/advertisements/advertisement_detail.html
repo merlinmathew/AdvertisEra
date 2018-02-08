@@ -46,7 +46,7 @@
              {% get_like user advertisement as likes %}
             <button id="like-ad" {% if likes %}class="fa fa-thumbs-up lavendera" {% else %} class="fa fa-thumbs-up" {% endif %}" aria-hidden="true"></button>
             {% endif %}
-            {% get_like_count advertisement as count %}<span id="like_countt">{{ count }}</span> {% if count == 1 %}like{% else %}likes{% endif %}
+            {% get_like_count advertisement as count %}<span class="like_countt" id="like_countt">{{ count }}</span> {% if count == 1 %}like{% else %}likes{% endif %}
             <h4 class="lavendera">{% for message in messages %}{{ message }}{% endfor %}</h4>
 
             <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>{{ advertisement.created_by.username }}</a> <span><i class="fa fa-calendar"></i>{{ advertisement.created }}</span> <a href="#"><i class="fa fa-tags"></i>{{ advertisement.category.category }}</a> </div>
@@ -186,9 +186,12 @@ $(document).on('click', '#like-ad', function(){
                        d.className += " orangera";
                        var mm = $('#like_countt').text();
 
+                       $('.like_countt').html(parseInt($('.like_countt').html())+1)
+
                    }
                    else if(response.status == 'unliked' ){
                        var d = document.getElementById("like-ad");
+                       $('.like_countt').html(parseInt($('.like_countt').html())-1)
                        d.classList.remove("orangera");
                        d.classList.remove("lavendera");
                    }

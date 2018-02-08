@@ -30,7 +30,7 @@
 $('document').ready(function(){
 $(document).on('click', '#search-ad', function(){
       var ad_search = $('#ad_search').val();
-      $(".searchkeyword").attr('href',"{% url 'testsearch' %}?second_search="+ad_search);
+      $(".searchkeyword").attr('href',"{% url 'search-response' %}?second_search="+ad_search);
       $.ajax({
                type: "get",
                url: "/search/?ad_search="+ad_search,
@@ -74,7 +74,7 @@ $(document).on('click', '#search-ad', function(){
 
 $(document).on('click', '#showthosemore', function(){
       var second_search = $('#ad_search').val();
-      $.get("{% url 'testsearch' %}?second_search=" + second_search, function (data) {
+      $.get("{% url 'search-response' %}?second_search=" + second_search, function (data) {
           alert(data);
        }, 'json');
 

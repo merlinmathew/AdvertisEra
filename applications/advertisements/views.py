@@ -286,7 +286,7 @@ class SearchAdView(generic.TemplateView):
         return HttpResponse(json.dumps(result), content_type='application/json')
 
 
-class TestSearchAdView(AjaxListView):
+class SearchResponseView(AjaxListView):
     """
     to list searched elements
     """

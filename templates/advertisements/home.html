@@ -207,6 +207,7 @@
 $('document').ready(function(){
 $(document).on('click', '#search-ad', function(){
       var ad_search = $('#ad_search').val();
+      $(".searchkeyword").attr('href',"{% url 'testsearch' %}?second_search="+ad_search);
       $.ajax({
                type: "get",
                url: "/search/?ad_search="+ad_search,
@@ -219,16 +220,18 @@ $(document).on('click', '#search-ad', function(){
                        $("#no-result").css("display", "none");
                        $("#no-entry").css("display", "none");
                        for (var i = 0, size = response.advs.length; i < size; i++) {
-//                           $("#checkcheck").append('<li class="cat-item"><a href="/advertisement-detail/'+response.advs[i].slug+'/" value="">'+response.advs[i].title+'</a></li>');
-                           $("#checkcheck").append('<li><div class="media wow fadeInDown"><a href="/advertisement-detail/'+response.advs[i].slug+'/" class="media-left"> <img alt="ad-img" src="'+response.advs[i].image+'"></a><div class="media-body"> <a href="/advertisement-detail/'+response.advs[i].slug+'/" class="catg_title">'+response.advs[i].title+'</a> </div></div></li>');
+                           $("#checkcheck").append('<li><div class="media wow fadeInDown"><a href="/advertisement-detail/'+response.advs[i].slug+'/" class="media-left"> <img alt="ad-img" src="media/'+response.advs[i].image+'"></a><div class="media-body"> <a href="/advertisement-detail/'+response.advs[i].slug+'/" class="catg_title">'+response.advs[i].title+'</a> </div></div></li>');
+                           $(".showthosemore").attr("style","display : block");
                        }
                        $("#refershit").refresh
                    }
                    else if(response.status == 'na-searched' ){
                            $(".no-result").attr("style","display : block");
+                           $(".showthosemore").css("display", "none");
                    }
                    else if(response.status == 'no-data' ){
                            $(".no-entry").attr("style","display : block");
+                           $(".showthosemore").css("display", "none");
                    }
                 },
                 error: function(rs, e) {
@@ -243,6 +246,15 @@ $(document).on('click', '#search-ad', function(){
         }
     });
 
+
 });
+
+$(document).on('click', '#showthosemore', function(){
+      var second_search = $('#ad_search').val();
+      $.get("{% url 'testsearch' %}?second_search=" + second_search, function (data) {
+          alert(data);
+       }, 'json');
+
+    })
 </script>
 {% endblock %}

@@ -179,6 +179,7 @@ class ElasticEmailBackend(BaseEmailBackend):
             logger.debug(response.status_code)
             logger.debug(response.text)
             email_response = response.text
+            print("KKKKKKKKKKKKKKK",email_response)
             logger.debug('#=======')
         except:
             if not self.fail_silently:

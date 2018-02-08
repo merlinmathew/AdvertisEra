@@ -1,7 +1,6 @@
 import json
 from applications.likes.models import Like
 from applications.ad_payment.models import AdvertisementPayment
-from applications.contacts.models import Contact
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
@@ -15,10 +14,10 @@ from django.urls import reverse_lazy
 from django.utils.encoding import force_text, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views import generic
-from django.views.generic import TemplateView, FormView, View
+from django.views.generic import TemplateView, FormView
 from django.contrib.auth import logout
 from django.db.models import Q
-from endless_pagination.views import AjaxListView
+from el_pagination.views import AjaxListView
 
 import stripe
 
@@ -32,13 +31,6 @@ class HomeView(TemplateView):
     home page
     """
     template_name = "advertisements/home.html"
-
-class TestView(AjaxListView):
-     model = Contact
-     paginate_by = 12
-     template_name = 'advertisements/test.htm'
-     page_template = 'advertisements/test_page_templatet.html'
-
 
 class InactiveLinkView(TemplateView):
     """
@@ -292,3 +284,19 @@ class SearchAdView(generic.TemplateView):
                 return HttpResponse(json.dumps(result), content_type='application/json')
         result['status'] = 'no-data'
         return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+class TestSearchAdView(AjaxListView):
+    """
+    to list searched elements
+    """
+    context_object_name = "advertisements_filtered"
+    template_name = 'advertisements/search.html'
+    page_template = 'advertisements/search_response.html'
+
+    def get_queryset(self):
+        second_search = self.request.GET.get('second_search')
+        advertisements = Advertisement.objects.all()
+        advertisements_filtered = advertisements.filter(Q(category__category__icontains=second_search) |
+            Q(title__icontains=second_search))
+        return advertisements_filtered

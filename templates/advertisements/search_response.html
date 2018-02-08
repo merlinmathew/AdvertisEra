@@ -1,0 +1,16 @@
+{% load el_pagination_tags %}
+{% paginate 10 advertisements_filtered %}
+{% for ad in advertisements_filtered %}
+     <div class="single_post_content_left">
+      <ul class="business_catgnav  wow fadeInDown">
+        <li>
+          <figure class="bsbig_fig"> <a href="{% url 'advertisement-detail' slug=ad.slug %}" class="featured_img"> <img alt="ad-img" src="{{ ad.image.url  }}"> <span class="overlay"></span> </a>
+            <figcaption> <a href="{% url 'advertisement-detail' slug=ad.slug %}">{{ ad.title }}</a> </figcaption>
+            <p>{{ ad.description|truncatechars:129 }}</p>
+            <h6><a class="slider_tittle" href="{% url 'advertisement-detail' slug=ad.slug %}"></a></h6>
+          </figure>
+        </li>
+      </ul>
+    </div>
+{% endfor %}
+{% show_more %}

@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+{% load el_pagination_tags %}
+{% load staticfiles %}
+{% block title %}<title>Search|Advert!sera</title>{% endblock %}
+{% block content %}
+<div>
+  {% include page_template %}
+</div>
+{% endblock %}
+{% block jquery %}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
+    <script>$.endlessPaginate({paginateOnScroll: true});</script>
+    <script>
+       $(function () {
+
+           $(document).on('swipeup', function () {
+               $('a.endless_more').click();
+               $('a.endless_more').css("display", "none");
+
+           });
+       });
+   </script>
+
+{% endblock %}

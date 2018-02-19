@@ -32,6 +32,7 @@ class HomeView(TemplateView):
     """
     template_name = "advertisements/home.html"
 
+
 class InactiveLinkView(TemplateView):
     """
     expired link cone
@@ -71,6 +72,8 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         user = form.save(commit=False)
+        password = form.cleaned_data['password']
+        user.set_password(password)
         user.is_active = False
         user.save()
         current_site = get_current_site(self.request)
